@@ -1,10 +1,10 @@
 import SwiftUI
 
-// Widok
 struct ContentView: View {
     @State private var itemSelected1 = 0
     @State private var itemSelected2 = 1
     @State private var amount : String = ""
+    @State private var showChartView = false
     private let converter = CurrencyConverter()
     
     var body: some View {
@@ -31,19 +31,9 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: createToolbar)
-        }
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    func createToolbar() -> some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Menu {
-                Button("Main Menu", action: {})
-                Button("Currencies", action: {})
-                Button("Author", action: {})
-                Button("Charts", action: {})
-            } label: {
-                Label("Menu", systemImage: "line.horizontal.3")
+            .toolbar(content: { createToolbar(showChartView: $showChartView) })
+            .fullScreenCover(isPresented: $showChartView) {
+                ChartView(showChartView: $showChartView)
             }
         }
     }
@@ -52,3 +42,4 @@ struct ContentView: View {
 #Preview { // Turn on iPhone view
     ContentView()
 }
+

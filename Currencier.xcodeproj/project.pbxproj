@@ -13,6 +13,8 @@
 		345445232B33B2020004290E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345445222B33B2020004290E /* Preview Assets.xcassets */; };
 		3454452C2B33BCB10004290E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454452B2B33BCB10004290E /* Utils.swift */; };
 		3454452F2B33C1CB0004290E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454452E2B33C1CB0004290E /* Currencies.swift */; };
+		346BC5542B34EA0200DC902C /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC5532B34EA0200DC902C /* Toolbar.swift */; };
+		346BC5562B34EA3E00DC902C /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC5552B34EA3E00DC902C /* Charts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		345445222B33B2020004290E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3454452B2B33BCB10004290E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3454452E2B33C1CB0004290E /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
+		346BC5532B34EA0200DC902C /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		346BC5552B34EA3E00DC902C /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				3454451D2B33B1FF0004290E /* ContentView.swift */,
+				346BC5532B34EA0200DC902C /* Toolbar.swift */,
+				346BC5552B34EA3E00DC902C /* Charts.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,8 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				346BC5562B34EA3E00DC902C /* Charts.swift in Sources */,
 				3454451E2B33B1FF0004290E /* ContentView.swift in Sources */,
 				3454451C2B33B1FF0004290E /* CurrencierApp.swift in Sources */,
+				346BC5542B34EA0200DC902C /* Toolbar.swift in Sources */,
 				3454452F2B33C1CB0004290E /* Currencies.swift in Sources */,
 				3454452C2B33BCB10004290E /* Utils.swift in Sources */,
 			);

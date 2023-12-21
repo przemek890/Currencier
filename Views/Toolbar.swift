@@ -1,8 +1,18 @@
-//
-//  Toolbar.swift
-//  Currencier
-//
-//  Created by przemek899 on 21/12/2023.
-//
+import SwiftUI
 
-import Foundation
+func createToolbar(showChartView: Binding<Bool>) -> some ToolbarContent {
+    ToolbarItem(placement: .navigationBarLeading) {
+        Menu {
+            Button("Main Menu", action: {
+                showChartView.wrappedValue = false
+            })
+            Button("Currencies", action: {})
+            Button("Author", action: {})
+            Button("Charts", action: {
+                showChartView.wrappedValue = true
+            })
+        } label: {
+            Label("Menu", systemImage: "line.horizontal.3")
+        }
+    }
+}
