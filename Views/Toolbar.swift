@@ -16,19 +16,19 @@ func createToolbar(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>,
                 showExchangeView.wrappedValue = true
 
             })
-            Button("Author", action: {
-                showMainView.wrappedValue = false
-                showChartView.wrappedValue = false
-                showExchangeView.wrappedValue = false
-                showAuthorView.wrappedValue = true
-
-            })
             Button("Charts", action: {
                 showMainView.wrappedValue = false
                 showAuthorView.wrappedValue = false
                 showExchangeView.wrappedValue = false
                 showChartView.wrappedValue = true
  
+            })
+            Button("Author", action: {
+                showMainView.wrappedValue = false
+                showChartView.wrappedValue = false
+                showExchangeView.wrappedValue = false
+                showAuthorView.wrappedValue = true
+
             })
         } label: {
             Label("Menu", systemImage: "line.horizontal.3")

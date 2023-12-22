@@ -3,8 +3,8 @@ import SwiftUI
 struct ExchangeView: View {
     @State private var itemSelected1 = 0
     @State private var itemSelected2 = 1
-    
     @State private var amount : String = ""
+    @State private var transactionType = "Buy"
     
     @Binding var showMainView: Bool
     @Binding var showExchangeView: Bool
@@ -32,6 +32,7 @@ struct ExchangeView: View {
                         }
                     }
                 }
+                
                 Section(header: Text("Conversion")) {
                     Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected2])")
                 }

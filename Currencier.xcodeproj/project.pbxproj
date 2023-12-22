@@ -52,7 +52,6 @@
 			isa = PBXGroup;
 			children = (
 				3454452D2B33C1BD0004290E /* Data */,
-				3454452B2B33BCB10004290E /* Utils.swift */,
 				3454452A2B33B8DB0004290E /* Views */,
 				3454451A2B33B1FF0004290E /* Currencier */,
 				345445192B33B1FF0004290E /* Products */,
@@ -100,6 +99,7 @@
 		3454452D2B33C1BD0004290E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3454452B2B33BCB10004290E /* Utils.swift */,
 				3454452E2B33C1CB0004290E /* Currencies.swift */,
 			);
 			path = Data;
