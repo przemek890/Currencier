@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		344C98A32B35B63A003A10B7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A22B35B63A003A10B7 /* Alamofire */; };
+		344C98A62B35C032003A10B7 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A52B35C032003A10B7 /* SwiftCSV */; };
 		3454451C2B33B1FF0004290E /* CurrencierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454451B2B33B1FF0004290E /* CurrencierApp.swift */; };
 		3454451E2B33B1FF0004290E /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454451D2B33B1FF0004290E /* Exchange.swift */; };
 		345445202B33B2020004290E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3454451F2B33B2020004290E /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				344C98A32B35B63A003A10B7 /* Alamofire in Frameworks */,
+				344C98A62B35C032003A10B7 /* SwiftCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +121,10 @@
 			dependencies = (
 			);
 			name = Currencier;
+			packageProductDependencies = (
+				344C98A22B35B63A003A10B7 /* Alamofire */,
+				344C98A52B35C032003A10B7 /* SwiftCSV */,
+			);
 			productName = Currencier;
 			productReference = 345445182B33B1FF0004290E /* Currencier.app */;
 			productType = "com.apple.product-type.application";
@@ -145,6 +153,10 @@
 				Base,
 			);
 			mainGroup = 3454450F2B33B1FF0004290E;
+			packageReferences = (
+				344C98A12B35B63A003A10B7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				344C98A42B35C032003A10B7 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
+			);
 			productRefGroup = 345445192B33B1FF0004290E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -382,6 +394,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		344C98A12B35B63A003A10B7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		344C98A42B35C032003A10B7 /* XCRemoteSwiftPackageReference "SwiftCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftcsv/SwiftCSV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		344C98A22B35B63A003A10B7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 344C98A12B35B63A003A10B7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		344C98A52B35C032003A10B7 /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 344C98A42B35C032003A10B7 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 345445102B33B1FF0004290E /* Project object */;
 }

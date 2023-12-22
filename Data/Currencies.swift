@@ -1,11 +1,14 @@
-// Model danych
+import Foundation
+
 struct CurrencyConverter {
     let currencies = ["PLN","NOK","USD","EUR","GBP"]
+    let plnRates = ["PLN": 1.0,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
+    let nokRates = ["PLN": 4.5,"NOK": 1.0,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
+    let usdRates = ["PLN": 1.0,"NOK":11.8,"USD": 1.0, "EUR": 1.0, "GBP": 0.84]
     let euroRates = ["PLN": 4.5,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
-    let usdRates = ["PLN": 1.0,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
-    let gbpRates = ["PLN": 4.5,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
-    let plnRates = ["PLN": 4.5,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
-    let nokRates = ["PLN": 4.5,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 0.84]
+    let gbpRates = ["PLN": 4.5,"NOK":11.8,"USD": 1.15, "EUR": 1.0, "GBP": 1.0]
+
+
     
     func convert(amount: Double, from: Int, to: Int) -> String {
         var conversion: Double = 1.0
@@ -30,5 +33,4 @@ struct CurrencyConverter {
         return String(format: "%.2f", conversion)
     }
 }
-
 

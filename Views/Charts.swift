@@ -1,25 +1,31 @@
 import SwiftUI
 
 struct CandleStick: View {
-    var high: CGFloat
-    var low: CGFloat
-    var open: CGFloat
-    var close: CGFloat
+    var high: Double
+    var low: Double
+    var open: Double
+    var close: Double
+    let scale: CGFloat = 1000.0 // Skala dla wysokości świec
 
     var body: some View {
-            VStack {
-                Rectangle()
-                    .fill(close > open ? Color.green : Color.red)
-                    .frame(width: 1, height: abs(high - max(open, close)))
-                Rectangle()
-                    .fill(close > open ? Color.green : Color.red)
-                    .frame(width: 10, height: abs(open - close))
-                Rectangle()
-                    .fill(close > open ? Color.green : Color.red)
-                    .frame(width: 1, height: abs(min(open, close) - low))
-            }
+        VStack {
+            // Górna cień świecy
+            Rectangle()
+                .fill(close > open ? Color.green : Color.red)
+                .frame(width: 1, height: CGFloat(max(high - open, high - close)) * scale)
+            // Ciało świecy
+            Rectangle()
+                .fill(close > open ? Color.green : Color.red)
+                .frame(width: 10, height: CGFloat(abs(open - close)) * scale)
+            // Dolna cień świecy
+            Rectangle()
+                .fill(close > open ? Color.green : Color.red)
+                .frame(width: 1, height: CGFloat(max(open - low, close - low)) * scale)
+        }
     }
 }
+
+
 
 struct ChartView: View {
     @Binding var showMainView: Bool
@@ -27,17 +33,39 @@ struct ChartView: View {
     @Binding var showAuthorView: Bool
     @Binding var showChartView: Bool
 
+    let dataRows: [DataRow]
+
+    init(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>, showAuthorView: Binding<Bool>, showChartView: Binding<Bool>) {
+        self._showMainView = showMainView
+        self._showExchangeView = showExchangeView
+        self._showAuthorView = showAuthorView
+        self._showChartView = showChartView
+
+        // Wczytaj dane z plików CSV
+        self.dataRows = loadCSVData(currencies: ["nokpln","usdpln","eurpln","gbppln"])
+        
+        print(self.dataRows)
+        
+    }
+
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Candle Charts")) {
-                    HStack {
-                        CandleStick(high: 100, low: 50, open: 75, close: 90)
-                        CandleStick(high: 120, low: 60, open: 110, close: 70)
-                        CandleStick(high: 80, low: 100, open: 25, close: 90)
-                        CandleStick(high: 20, low: 80, open: 110, close: 70)
-                        CandleStick(high: 100, low: 50, open: 75, close: 90)
-                    }
+                // Grupuj dane według waluty
+                let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
+                ForEach(groupedData.keys.sorted(), id: \.self) { currency in
+
+                        Section(header: Text(currency)) {
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    // Dodajemy indeks do ForEach, aby uczynić każdą świecę unikalną
+                                    ForEach(groupedData[currency]!.indices, id: \.self) { index in
+                                        let dataRow = groupedData[currency]![index]
+                                        CandleStick(high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close)
+                                    }
+                                }
+                            }
+                        }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -45,4 +73,3 @@ struct ChartView: View {
         }
     }
 }
-    
