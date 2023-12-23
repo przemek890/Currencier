@@ -100,3 +100,5 @@ func loadCSVData(currencies: [String]) -> [DataRow] {
     }
     return dataRows
 }
+
+

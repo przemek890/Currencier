@@ -44,58 +44,19 @@ struct ScaleBarView: View {
     var maxHighValue: Double
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                ForEach(0..<6, id: \.self) { index in
-                    let value = (maxHighValue - minLowValue) / 5 * Double(5 - index) + minLowValue
+        VStack(alignment: .leading) {
+            ForEach(0..<6, id: \.self) { index in
+                let value = (maxHighValue - minLowValue) / 5 * Double(5 - index) + minLowValue
+                HStack {
                     Text(String(format: "%.4f", value))
-                    if index < 5 {
-                        Divider()
-                    }
+                        .font(.system(size: 11))
+                    Spacer()
+                    Divider()
                 }
             }
-            Rectangle()
-                .frame(width: 1)
-                .foregroundColor(.gray)
         }
     }
 }
-
-
-struct SearchBar: View {
-    @Binding var text: String
-
-    var body: some View {
-        HStack {
-            TextField("Wyszukaj...", text: $text)
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-                        
-                        if !text.isEmpty {
-                            Button(action: {
-                                self.text = ""
-                            }) {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
-                            }
-                        }
-                    }
-                )
-                .padding(.horizontal, 10)
-        }
-        .navigationBarTitle(Text("Wyszukaj"), displayMode: .inline)
-    }
-}
-
 
 
 

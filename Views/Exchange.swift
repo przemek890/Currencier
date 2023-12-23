@@ -17,21 +17,26 @@ struct ExchangeView: View {
         NavigationView {
             Form {
                 Section(header: Text("Convert a currency")) {
+                    
+                    Picker(selection: $itemSelected1, label: Text("Base")) {
+                        ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
+                            Text(currency).tag(index)
+                        }
+                    }
+                    
+                    Picker(selection: $itemSelected2, label: Text("Quoted")) {
+                        ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
+                            Text(currency).tag(index)
+                        }
+                    }
+                    
+                }
+                
+                Section(header: Text("Amount")) {
                     TextField("Enter an amount",text: $amount)
                         .keyboardType(.decimalPad)
-                    
-                    Picker(selection: $itemSelected1, label: Text("From")) {
-                        ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
-                            Text(currency).tag(index)
-                        }
-                    }
-                    
-                    Picker(selection: $itemSelected2, label: Text("To")) {
-                        ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
-                            Text(currency).tag(index)
-                        }
-                    }
                 }
+
                 
                 Section(header: Text("Conversion")) {
                     Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected2])")

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		343609262B37072300CD0A4E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343609252B37072300CD0A4E /* ViewExtensions.swift */; };
 		344C98A32B35B63A003A10B7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A22B35B63A003A10B7 /* Alamofire */; };
 		344C98A62B35C032003A10B7 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A52B35C032003A10B7 /* SwiftCSV */; };
 		3454451C2B33B1FF0004290E /* CurrencierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454451B2B33B1FF0004290E /* CurrencierApp.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		343609252B37072300CD0A4E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		345445182B33B1FF0004290E /* Currencier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currencier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454451B2B33B1FF0004290E /* CurrencierApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencierApp.swift; sourceTree = "<group>"; };
 		3454451D2B33B1FF0004290E /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				3454452B2B33BCB10004290E /* Utils.swift */,
 				3454452E2B33C1CB0004290E /* Currencies.swift */,
+				343609252B37072300CD0A4E /* ViewExtensions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				3454451E2B33B1FF0004290E /* Exchange.swift in Sources */,
 				346BC5672B34EED600DC902C /* Main.swift in Sources */,
 				3454451C2B33B1FF0004290E /* CurrencierApp.swift in Sources */,
+				343609262B37072300CD0A4E /* ViewExtensions.swift in Sources */,
 				346BC5542B34EA0200DC902C /* Toolbar.swift in Sources */,
 				3454452F2B33C1CB0004290E /* Currencies.swift in Sources */,
 				346BC55E2B34ED4200DC902C /* Author.swift in Sources */,
