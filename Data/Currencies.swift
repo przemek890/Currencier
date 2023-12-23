@@ -18,7 +18,6 @@ struct CurrencyConverter {
         }
         for currency in currencies {
             if let dataRow = dataRows.last(where: { $0.currency.lowercased().contains(currency.lowercased()) }) {
-                let averageRate = (dataRow.open + dataRow.close) / 2
                 updateRates2(for: currency)
             }
         }

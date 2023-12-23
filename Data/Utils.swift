@@ -1,5 +1,4 @@
 import Foundation
-import SwiftCSV
 import Alamofire
 
 extension String {
@@ -25,18 +24,6 @@ func getData(currencies: [String]) {
     let directoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     let folderURL = directoryURL.appendingPathComponent("Exchange_rates")
 
-    // Usuń wszystkie istniejące pliki CSV
-    do {
-        let filePaths = try fileManager.contentsOfDirectory(atPath: folderURL.path)
-        for filePath in filePaths {
-            if filePath.hasSuffix(".csv") {
-                try fileManager.removeItem(at: folderURL.appendingPathComponent(filePath))
-            }
-        }
-    } catch {
-        print("Failed to remove existing CSV files: \(error)")
-    }
-
     let date = Date()
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyyMMdd" // Zmień format daty na 'yyyyMMdd' dla stooq.pl
@@ -49,6 +36,13 @@ func getData(currencies: [String]) {
 
     for currency in currencies {
         let fileURL = folderURL.appendingPathComponent("\(currency)_\(endDateString).csv")
+
+        // Sprawdź, czy plik istnieje i jest aktualny
+        if let fileModificationDate = try? fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate,
+           Calendar.current.isDate(fileModificationDate, inSameDayAs: date) {
+            // Plik istnieje i jest aktualny, nie pobieraj go ponownie
+            continue // <-- pobierz lub nie
+        }
 
         // Dodaj datę początkową i końcową do URL
         let csvURL = "https://stooq.pl/q/d/l/?s=\(currency)&d1=\(startDateString)&d2=\(endDateString)&i=d"

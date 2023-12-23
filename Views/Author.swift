@@ -25,8 +25,13 @@ struct AuthorView: View {
                         Text("Index: 411890")
                     }
                     VStack {
-                        Text("Powered by: Xcode")
+                        Text("Powered by: Swift")
                     }
+                }
+                Section {
+                    Image("swift")
+                        .resizable()
+                        .scaledToFit()
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -34,4 +39,3 @@ struct AuthorView: View {
         }
     }
 }
-
