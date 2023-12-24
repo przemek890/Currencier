@@ -75,6 +75,8 @@ struct ContentView: View {
     @State private var showAuthorView = false
     
     @State private var isDataLoaded = false
+    
+    @State private var language: String = "en"
 
     var body: some View {
         if isDataLoaded {
@@ -82,34 +84,36 @@ struct ContentView: View {
                 Form {
                     Section(header:
                         HStack {
-                            Text("Currency pairs")
+                            Text(language == "en" ? "Currency pairs" : "Pary walutowe")
                             Spacer()
-                            Text("Open")
+                            Text(language == "en" ? "Open" : "Otwarcie")
                             Spacer()
-                            Text("High")
+                            Text(language == "en" ? "High" : "Najwyższy" )
                             Spacer()
-                            Text("Low")
+                            Text(language == "en" ? "Low" : "Najniższy")
                             Spacer()
-                            Text("Close")
+                            Text(language == "en" ? "Close" : "Zamknięcie")
                         }
                     ) {
                         CurrencyPairsView()
                     }
                 }
                 .fullScreenCover(isPresented: $showChartView) {
-                    ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView)
+                    ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
                 }
                 .fullScreenCover(isPresented: $showAuthorView) {
-                    AuthorView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView)
+                    AuthorView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
                 }
                 .fullScreenCover(isPresented: $showExchangeView) {
-                    ExchangeView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView)
+                    ExchangeView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView) })
+                .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView,
+                                                  showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         } else {
-            Text("Loading...")
+            Text(language == "en" ? "Loading..." : "Ładowanie")
                 .onAppear {
                     let currencies = ["nokpln","usdpln","eurpln","gbppln",
                                       "plnnok","usdnok","eurnok","gbpnok",
@@ -126,6 +130,8 @@ struct ContentView: View {
     }
 }
 
-#Preview { // Turn on iPhone view
-    ContentView()
-}
+//#Preview { // Turn on iPhone view
+//    ContentView()
+//}
+
+

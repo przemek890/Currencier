@@ -23,6 +23,9 @@ func getData(currencies: [String]) {
     let fileManager = FileManager.default
     let directoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     let folderURL = directoryURL.appendingPathComponent("Exchange_rates")
+    
+    print("folderURL: \(folderURL.path)\n")
+
 
     let date = Date()
     let formatter = DateFormatter()
@@ -41,7 +44,10 @@ func getData(currencies: [String]) {
         if let fileModificationDate = try? fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate,
            Calendar.current.isDate(fileModificationDate, inSameDayAs: date) {
             // Plik istnieje i jest aktualny, nie pobieraj go ponownie
-            continue // <-- pobierz lub nie
+            continue
+        } else {
+            // Plik jest przestarzały lub nie istnieje, usuń go
+            try? fileManager.removeItem(at: fileURL)
         }
 
         // Dodaj datę początkową i końcową do URL
@@ -59,7 +65,6 @@ func downloadCSV(from url: String, to destination: URL) {
         }
     }
 }
-
 
 struct DataRow {
     let currency: String

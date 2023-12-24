@@ -2,10 +2,11 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var text: String
+    @Binding var language: String
 
     var body: some View {
         HStack {
-            TextField("Wyszukaj...", text: $text)
+            TextField(language == "en" ? "Search..." : "Wyszukaj...", text: $text)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -30,6 +31,6 @@ struct SearchBar: View {
                 )
                 .padding(.horizontal, 10)
         }
-        .navigationBarTitle(Text("Wyszukaj"), displayMode: .inline)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

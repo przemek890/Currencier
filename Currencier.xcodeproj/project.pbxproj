@@ -18,8 +18,9 @@
 		3454452F2B33C1CB0004290E /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454452E2B33C1CB0004290E /* Currencies.swift */; };
 		346BC5542B34EA0200DC902C /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC5532B34EA0200DC902C /* Toolbar.swift */; };
 		346BC5562B34EA3E00DC902C /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC5552B34EA3E00DC902C /* Charts.swift */; };
-		346BC55E2B34ED4200DC902C /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC55D2B34ED4200DC902C /* Author.swift */; };
+		346BC55E2B34ED4200DC902C /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC55D2B34ED4200DC902C /* Options.swift */; };
 		346BC5672B34EED600DC902C /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BC5662B34EED600DC902C /* Main.swift */; };
+		34FA2EFB2B38DBB400587393 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 34FA2EFA2B38DBB400587393 /* SwiftUICharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +34,7 @@
 		3454452E2B33C1CB0004290E /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		346BC5532B34EA0200DC902C /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		346BC5552B34EA3E00DC902C /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
-		346BC55D2B34ED4200DC902C /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		346BC55D2B34ED4200DC902C /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		346BC5662B34EED600DC902C /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34FA2EFB2B38DBB400587393 /* SwiftUICharts in Frameworks */,
 				344C98A32B35B63A003A10B7 /* Alamofire in Frameworks */,
 				344C98A62B35C032003A10B7 /* SwiftCSV in Frameworks */,
 			);
@@ -92,7 +94,7 @@
 				3454451D2B33B1FF0004290E /* Exchange.swift */,
 				346BC5532B34EA0200DC902C /* Toolbar.swift */,
 				346BC5552B34EA3E00DC902C /* Charts.swift */,
-				346BC55D2B34ED4200DC902C /* Author.swift */,
+				346BC55D2B34ED4200DC902C /* Options.swift */,
 				346BC5662B34EED600DC902C /* Main.swift */,
 			);
 			path = Views;
@@ -127,6 +129,7 @@
 			packageProductDependencies = (
 				344C98A22B35B63A003A10B7 /* Alamofire */,
 				344C98A52B35C032003A10B7 /* SwiftCSV */,
+				34FA2EFA2B38DBB400587393 /* SwiftUICharts */,
 			);
 			productName = Currencier;
 			productReference = 345445182B33B1FF0004290E /* Currencier.app */;
@@ -159,6 +162,7 @@
 			packageReferences = (
 				344C98A12B35B63A003A10B7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				344C98A42B35C032003A10B7 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
+				34FA2EF92B38DBB400587393 /* XCRemoteSwiftPackageReference "chartview" */,
 			);
 			productRefGroup = 345445192B33B1FF0004290E /* Products */;
 			projectDirPath = "";
@@ -193,7 +197,7 @@
 				343609262B37072300CD0A4E /* ViewExtensions.swift in Sources */,
 				346BC5542B34EA0200DC902C /* Toolbar.swift in Sources */,
 				3454452F2B33C1CB0004290E /* Currencies.swift in Sources */,
-				346BC55E2B34ED4200DC902C /* Author.swift in Sources */,
+				346BC55E2B34ED4200DC902C /* Options.swift in Sources */,
 				3454452C2B33BCB10004290E /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +332,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Currencier/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PMGQBN6W9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -356,6 +361,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Currencier/Preview Content\"";
+				DEVELOPMENT_TEAM = 8PMGQBN6W9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -416,6 +422,14 @@
 				minimumVersion = 0.9.1;
 			};
 		};
+		34FA2EF92B38DBB400587393 /* XCRemoteSwiftPackageReference "chartview" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apppear/chartview.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -428,6 +442,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 344C98A42B35C032003A10B7 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
 			productName = SwiftCSV;
+		};
+		34FA2EFA2B38DBB400587393 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 34FA2EF92B38DBB400587393 /* XCRemoteSwiftPackageReference "chartview" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
