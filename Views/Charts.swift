@@ -172,7 +172,8 @@ struct ChartView: View {
         self.dataRows = loadCSVData(currencies: ["nokpln","usdpln","eurpln","gbppln",
                                                  "plnnok","usdnok","eurnok","gbpnok",
                                                  "plnusd","nokusd","eurusd","gbpusd",
-                                                 "plngbp","nokgbp","eurgbp","usdgbp"])
+                                                 "plngbp","nokgbp","eurgbp","usdgbp",
+                                                 "plneur", "nokeur","gbpeur","usdeur"])
         print(self.dataRows)
         
     }
@@ -185,6 +186,7 @@ struct ChartView: View {
                     Text(language == "en" ? "Line" : "Liniowy").tag(true)
                     Text(language == "en" ? "Candle" : "Świecowy").tag(false)
                 }
+                .frame(height: 40)
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
                 if showLineChart {

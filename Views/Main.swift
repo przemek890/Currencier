@@ -7,6 +7,8 @@ struct CurrencyPairView: View {
     var low: Double
     var open: Double
     var close: Double
+    var isSelected: Bool
+    @Binding var language: String
     
     var body: some View {
         HStack {
@@ -15,56 +17,73 @@ struct CurrencyPairView: View {
                 Image(currency2)
                     .offset(x: -17)
             }
-            .scaleEffect(0.33)
+            .scaleEffect(0.40)
             Spacer()
-            Text("\(String(format: "%.4f", open))")
-                .font(.system(size: 11))
-            Spacer()
-            Text("\(String(format: "%.4f", high))")
-                .font(.system(size: 11))
-            Spacer()
-            Text("\(String(format: "%.4f", low))")
-                .font(.system(size: 11))
-            Spacer()
-            Text("\(String(format: "%.4f", close))")
-                .font(.system(size: 11))
+            if isSelected {
+                let change = close - open
+                Text("\(language == "en" ? "Change from last month: " : "Zmiana wzgledem ostatniego miesiaca: ")\(String(format: "%.2f", change * 100 / open))%")
+                    .font(.system(size: 11))
+                    .foregroundColor(change > 0 ? .green : .red)
+            } else {
+                Text("\(String(format: "%.4f", open))")
+                    .font(.system(size: 14))
+                Spacer()
+                Text("\(String(format: "%.4f", high))")
+                    .font(.system(size: 14))
+                Spacer()
+                Text("\(String(format: "%.4f", low))")
+                    .font(.system(size: 14))
+                Spacer()
+                Text("\(String(format: "%.4f", close))")
+                    .font(.system(size: 14))
+            }
         }
+        .frame(height: 50) // Zwiększ wysokość wiersza
     }
 }
+
+
 struct CurrencyPairsView: View {
     let currencyPairs = ["nokpln","usdpln","eurpln","gbppln",
                          "plnnok","usdnok","eurnok","gbpnok",
                          "plnusd","nokusd","eurusd","gbpusd",
-                         "plngbp","nokgbp","eurgbp","usdgbp"]
+                         "plngbp","nokgbp","eurgbp","usdgbp",
+                         "plneur", "nokeur","gbpeur","usdeur"]
     
     var dataRows: [DataRow] {
         loadCSVData(currencies: currencyPairs)
     }
     
+    @State private var selectedCurrencyPair: String? = nil
+    @Binding var language: String
+    @Binding var searchText: String
+    
     var body: some View {
-        // Grupuj dane według pary walutowej
         let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
         ForEach(groupedData.keys.sorted(), id: \.self) { currencyPair in
-            
-            // Posortuj dane dla bieżącej pary walutowej według daty
             let sortedData = groupedData[currencyPair]!.sorted(by: { $0.date > $1.date })
-            
-            // Pomiń wiersze z niepoprawnymi danymi
             let validData = sortedData.filter { $0.date != "Data" }
-            
-            // Jeśli są jakiekolwiek poprawne dane, wybierz high, low, open i close dla najświeższej daty
             if let firstValidRow = validData.first {
                 let high = firstValidRow.high
                 let low = firstValidRow.low
                 let open = firstValidRow.open
                 let close = firstValidRow.close
-                
-                // Przekazanie high, low, open i close do CurrencyPairView
-                CurrencyPairView(currency1: String(currencyPair.prefix(3)), currency2: String(currencyPair.suffix(3)), high: high, low: low, open: open, close: close)
+                if currencyPair.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
+                    CurrencyPairView(currency1: String(currencyPair.prefix(3)), currency2: String(currencyPair.suffix(3)), high: high, low: low, open: open, close: close, isSelected: selectedCurrencyPair == currencyPair,language: $language)
+                        .onTapGesture {
+                            if selectedCurrencyPair == currencyPair {
+                                selectedCurrencyPair = nil
+                            } else {
+                                selectedCurrencyPair = currencyPair
+                            }
+                        }
+                        .opacity(selectedCurrencyPair == nil || selectedCurrencyPair == currencyPair ? 1 : 0.5)
+                }
             }
         }
     }
 }
+
 
 
 
@@ -77,6 +96,7 @@ struct ContentView: View {
     @State private var isDataLoaded = false
     
     @State private var language: String = "en"
+    @State private var searchText: String = ""
 
     var body: some View {
         if isDataLoaded {
@@ -87,6 +107,8 @@ struct ContentView: View {
                         .font(.largeTitle) // Zwiększ rozmiar czcionki
                         .padding()
                         .bold()
+                        .opacity(0.5)
+                    SearchBar(text: $searchText, language: $language)
                     Form {
                         Section(header:
                                     HStack {
@@ -101,7 +123,7 @@ struct ContentView: View {
                             Text(language == "en" ? "Close" : "Zamknięcie")
                         }
                         ) {
-                            CurrencyPairsView()
+                            CurrencyPairsView(language: $language,searchText: $searchText)
                         }
                     }
                 }
@@ -126,7 +148,8 @@ struct ContentView: View {
                     let currencies = ["nokpln","usdpln","eurpln","gbppln",
                                       "plnnok","usdnok","eurnok","gbpnok",
                                       "plnusd","nokusd","eurusd","gbpusd",
-                                      "plngbp","nokgbp","eurgbp","usdgbp"]
+                                      "plngbp","nokgbp","eurgbp","usdgbp",
+                                      "plneur", "nokeur","gbpeur","usdeur"]
                     DispatchQueue.global(qos: .background).async {
                         getData(currencies: currencies)
                         DispatchQueue.main.async {

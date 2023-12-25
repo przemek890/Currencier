@@ -29,49 +29,73 @@ struct AuthorView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 20)
+                            Spacer().frame(width: 20)
                             Text(self.language == "en" ? "English" : "Polski")
                         }
                     }
                 }
-                Section(header: Text(language == "en" ? "Credits" : "Twórcy")) {
-                   VStack {
-                       Text(language == "en" ? "Author: Przemysław Janiszewski" : "Autor: Przemysław Janiszewski")
-                   }
-                   VStack {
-                       Text(language == "en" ? "Index: 411890" : "Indeks: 411890")
-                   }
+                Section(header: Text(language == "en" ? "Author" : "Autor")) {
                     VStack {
-                        HStack {
-                            Text(language == "en" ? "Powered by: " : "Zasilany przez: ")
-                            Section {
-                                Image("swift")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 20) // Wysokość tekstu
-                            }
-                            Section {
-                                Image("swiftui")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 20) // Wysokość tekstu
-                            }
-                            Section {
-                                Image("swiftuicharts")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 20) // Wysokość tekstu
-                            }
-                            Section {
-                                Image("xcode")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 20) // Wysokość tekstu
-                            }
+                        HStack{
+                            Image("github")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 20)
+                            Link("Przemysław Janiszewski", destination: URL(string: "https://github.com/przemek890")!)
                         }
                     }
-
                 }
-
+                Section(header: Text(language == "en" ? "Powered by: " : "Zasilane przez: ")) {
+                        HStack{
+                            Image("apple")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 75)
+                            Link("Apple", destination: URL(string: "https://www.apple.com/")!)
+                        }
+                        HStack{
+                            Image("swift")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 70)
+                            Link("Swift", destination: URL(string: "https://developer.apple.com/swift/")!)
+                        }
+                        HStack {
+                            Image("swiftui")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 70)
+                            Link("SwiftUI", destination: URL(string: "https://developer.apple.com/xcode/swiftui/")!)
+                        }
+                        HStack {
+                            Image("swiftuicharts")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 70)
+                            Link("SwiftUICharts", destination: URL(string: "https://github.com/willdale/SwiftUICharts")!)
+                        }
+                        HStack {
+                            Image("alamofire")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 22)
+                            Link("Alamofire", destination: URL(string: "https://github.com/Alamofire")!)
+                        }
+                        HStack {
+                            Image("xcode")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                            Spacer().frame(width: 70)
+                            Link("Xcode", destination: URL(string: "https://developer.apple.com/xcode/")!)
+                        }
+                    }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
