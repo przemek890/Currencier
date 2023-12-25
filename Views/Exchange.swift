@@ -20,13 +20,13 @@ struct ExchangeView: View {
             Form {
                 Section(header: Text(language == "en" ? "Convert a currency" : "Przelicz walutę")) {
                     
-                    Picker(selection: $itemSelected1, label: Text(language == "en" ? "Base" : "Bazowa")) {
+                    Picker(selection: $itemSelected2, label: Text(language == "en" ? "Base" : "Bazowa")) {
                         ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
                             Text(currency).tag(index)
                         }
                     }
                     
-                    Picker(selection: $itemSelected2, label: Text(language == "en" ? "Quoted" : "Kwotowana")) {
+                    Picker(selection: $itemSelected1, label: Text(language == "en" ? "Quoted" : "Kwotowana")) {
                         ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
                             Text(currency).tag(index)
                         }
@@ -41,7 +41,7 @@ struct ExchangeView: View {
 
                 
                 Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
-                    Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected2])")
+                    Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected1])")
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

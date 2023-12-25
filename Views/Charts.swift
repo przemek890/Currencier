@@ -7,28 +7,38 @@ struct CandleStick: View {
     var open: Double
     var close: Double
     var curr: String
-    var scale: CGFloat
+    var maxHighValue: Double
+    var minLowValue: Double
 
-
-    
     var body: some View {
+        let scale = maxHighValue - minLowValue
+        let midValue = (maxHighValue + minLowValue) / 2
         VStack {
             // Górna cień świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 1, height: CGFloat(max(high - open, high - close)) * (250 / scale))
+                .frame(width: 1, height: CGFloat((high - max(open, close)) * (400 / scale)))
+                .offset(y: CGFloat((midValue - max(open, close)) * (400 / scale)) + 8)
+
             // Ciało świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 10, height: CGFloat(abs(open - close)) *  (250 / scale))
+                .frame(width: 10, height: CGFloat(abs(open - close)) *  (400 / scale))
+                .offset(y: CGFloat((midValue - max(open, close)) * (400 / scale)))
             // Dolna cień świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 1, height: CGFloat(max(open - low, close - low)) *  (250 / scale))
+                .frame(width: 1, height: CGFloat((min(open, close) - low) *  (400 / scale)))
+                .offset(y: CGFloat((midValue - max(open, close)) * (400 / scale)) - 8)
         }
-        .padding(.horizontal, 7)
+        .padding(.horizontal, 7) // Dodaj marginesy poziome
     }
 }
+
+
+
+
+
 
 struct ScaleView: View {
     var minLowValue: Double
@@ -78,14 +88,14 @@ struct CandleChartsView: View {
                                 // Oblicz minLowValue i maxHighValue dla bieżącej pary walutowej
                                 let minLowValue = groupedData[currency]!.compactMap({ $0.low != 0 ? $0.low : nil }).min() ?? 0
                                 let maxHighValue = groupedData[currency]!.map({ $0.high }).max() ?? 0
-                                let scale = maxHighValue - minLowValue
                                 ScaleBarView(minLowValue: minLowValue, maxHighValue: maxHighValue)
                                 ForEach(groupedData[currency]!.indices, id: \.self) { index in
                                     let dataRow = groupedData[currency]![index]
-                                    CandleStick(high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close, curr: currency, scale: scale)
+                                    CandleStick(high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close,
+                                                curr: currency, maxHighValue: maxHighValue,minLowValue: minLowValue)
                                 }
                             }
-                            .frame(height: 250) // Ustawienie stałej wysokości dla HStack
+                            .frame(height: 400) // Ustawienie stałej wysokości dla HStack
                         }
                     }
                 }
@@ -123,6 +133,7 @@ struct LineChartView: View {
                             let average = (dataRow.open + dataRow.close) / 2
                             return average
                         }
+                        
                         if currency.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                             LineView(data: data, title: currency, legend: currency, valueSpecifier: "%.4f")
                                 .padding()

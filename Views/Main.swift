@@ -81,9 +81,15 @@ struct ContentView: View {
     var body: some View {
         if isDataLoaded {
             NavigationView {
-                Form {
-                    Section(header:
-                        HStack {
+                VStack {
+                    Spacer() // Dodaj odstęp na górze
+                    Text("CURRENCIER")
+                        .font(.largeTitle) // Zwiększ rozmiar czcionki
+                        .padding()
+                        .bold()
+                    Form {
+                        Section(header:
+                                    HStack {
                             Text(language == "en" ? "Currency pairs" : "Pary walutowe")
                             Spacer()
                             Text(language == "en" ? "Open" : "Otwarcie")
@@ -94,10 +100,12 @@ struct ContentView: View {
                             Spacer()
                             Text(language == "en" ? "Close" : "Zamknięcie")
                         }
-                    ) {
-                        CurrencyPairsView()
+                        ) {
+                            CurrencyPairsView()
+                        }
                     }
                 }
+                
                 .fullScreenCover(isPresented: $showChartView) {
                     ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
                 }
