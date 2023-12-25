@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "46CFB05D-7B32-41A9-974A-9509C291F94F"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32C95A83-B5FC-4A4D-BD78-BD6EB20BD26D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Data/CurrencyPairs.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3"
+            endingLineNumber = "3"
+            landmarkName = "CurrencyPairsView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "32C95A83-B5FC-4A4D-BD78-BD6EB20BD26D - 52a95982b637b60"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Currencier.CurrencyPairView.init(currency1: Swift.String, currency2: Swift.String) -&gt; Currencier.CurrencyPairView"
+                  moduleName = "Currencier"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/przemek899/Desktop/Currencier/Data/CurrencyPairs.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "32C95A83-B5FC-4A4D-BD78-BD6EB20BD26D - 59195b331d9d89f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Currencier.CurrencyPairsView.init() -&gt; Currencier.CurrencyPairsView"
+                  moduleName = "Currencier"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/przemek899/Desktop/Currencier/Data/CurrencyPairs.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3"
+                  endingLineNumber = "3"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
