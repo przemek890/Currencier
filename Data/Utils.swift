@@ -26,7 +26,6 @@ func getData(currencies: [String]) {
     
     print("folderURL: \(folderURL.path)\n")
 
-
     let date = Date()
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyyMMdd" // Zmień format daty na 'yyyyMMdd' dla stooq.pl
@@ -37,22 +36,22 @@ func getData(currencies: [String]) {
     let startDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
     let startDateString = formatter.string(from: startDate)
 
-    for currency in currencies {
-        let fileURL = folderURL.appendingPathComponent("\(currency)_\(endDateString).csv")
+    // Sprawdź, czy istnieją jakiekolwiek pliki CSV z dzisiejszą datą
+    let files = try? fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
+    let todaysFilesExist = files?.contains { $0.lastPathComponent.hasSuffix("\(endDateString).csv") } ?? false
 
-        // Sprawdź, czy plik istnieje i jest aktualny
-        if let fileModificationDate = try? fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate,
-           Calendar.current.isDate(fileModificationDate, inSameDayAs: date) {
-            // Plik istnieje i jest aktualny, nie pobieraj go ponownie
-            continue
-        } else {
-            // Plik jest przestarzały lub nie istnieje, usuń go
+    if !todaysFilesExist {
+        // Usuń wszystkie pliki w folderze
+        for fileURL in files ?? [] {
             try? fileManager.removeItem(at: fileURL)
         }
 
-        // Dodaj datę początkową i końcową do URL
-        let csvURL = "https://stooq.pl/q/d/l/?s=\(currency)&d1=\(startDateString)&d2=\(endDateString)&i=d"
-        downloadCSV(from: csvURL, to: fileURL)
+        // Pobierz nowe pliki CSV dla każdej waluty
+        for currency in currencies {
+            let fileURL = folderURL.appendingPathComponent("\(currency)_\(endDateString).csv")
+            let csvURL = "https://stooq.pl/q/d/l/?s=\(currency)&d1=\(startDateString)&d2=\(endDateString)&i=d"
+            downloadCSV(from: csvURL, to: fileURL)
+        }
     }
 }
 
@@ -65,6 +64,7 @@ func downloadCSV(from url: String, to destination: URL) {
         }
     }
 }
+
 
 struct DataRow {
     let currency: String

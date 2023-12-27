@@ -50,14 +50,18 @@ struct CurrencyPairsView: View {
                          "plngbp","nokgbp","eurgbp","usdgbp",
                          "plneur", "nokeur","gbpeur","usdeur"]
     
-    var dataRows: [DataRow] {
-        loadCSVData(currencies: currencyPairs)
-    }
-    
     @State private var selectedCurrencyPair: String? = nil
     @Binding var language: String
     @Binding var searchText: String
     
+    
+    let dataRows: [DataRow]
+    init(language: Binding<String>, searchText: Binding<String>) {
+        self._language = language
+        self._searchText = searchText
+        self.dataRows = loadCSVData(currencies: currencyPairs)
+    }
+
     var body: some View {
         let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
         ForEach(groupedData.keys.sorted(), id: \.self) { currencyPair in
@@ -84,22 +88,37 @@ struct CurrencyPairsView: View {
     }
 }
 
+class DataLoader: ObservableObject {
+    @Published var isDataLoaded = false
 
-
+    func loadData() {
+        let currencies = ["nokpln","usdpln","eurpln","gbppln",
+                          "plnnok","usdnok","eurnok","gbpnok",
+                          "plnusd","nokusd","eurusd","gbpusd",
+                          "plngbp","nokgbp","eurgbp","usdgbp",
+                          "plneur", "nokeur","gbpeur","usdeur"]
+        DispatchQueue.global(qos: .background).async {
+            getData(currencies: currencies)
+            DispatchQueue.main.async {
+                self.isDataLoaded = true
+            }
+        }
+    }
+}
 
 struct ContentView: View {
+    @StateObject private var dataLoader = DataLoader()
+
     @State private var showMainView = true
     @State private var showChartView = false
     @State private var showExchangeView = false
     @State private var showAuthorView = false
     
-    @State private var isDataLoaded = false
-    
     @State private var language: String = "en"
     @State private var searchText: String = ""
 
     var body: some View {
-        if isDataLoaded {
+        if dataLoader.isDataLoaded {
             NavigationView {
                 VStack {
                     Spacer() // Dodaj odstęp na górze
@@ -142,21 +161,12 @@ struct ContentView: View {
                                                   showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
             }
             .navigationViewStyle(StackNavigationViewStyle())
-        } else {
+        } 
+        else {
             Text(language == "en" ? "Loading..." : "Ładowanie")
                 .onAppear {
-                    let currencies = ["nokpln","usdpln","eurpln","gbppln",
-                                      "plnnok","usdnok","eurnok","gbpnok",
-                                      "plnusd","nokusd","eurusd","gbpusd",
-                                      "plngbp","nokgbp","eurgbp","usdgbp",
-                                      "plneur", "nokeur","gbpeur","usdeur"]
-                    DispatchQueue.global(qos: .background).async {
-                        getData(currencies: currencies)
-                        DispatchQueue.main.async {
-                            isDataLoaded = true
-                        }
-                    }
-                }
+                    dataLoader.loadData()
+            }
         }
     }
 }
