@@ -1,23 +1,6 @@
 import Foundation
 import Alamofire
 
-extension String {
-    static let numberFormatter = NumberFormatter()
-    var doubleValue: Double {
-        String.numberFormatter.decimalSeparator = "."
-        if let result = String.numberFormatter.number(from: self) {
-            return result.doubleValue
-        }
-        else {
-            String.numberFormatter.decimalSeparator = ","
-            if let result = String.numberFormatter.number(from: self) {
-                return result.doubleValue
-            }
-        }
-        return 0
-    }
-}
-
 
 func getData(currencies: [String]) {
     let fileManager = FileManager.default
@@ -47,21 +30,25 @@ func getData(currencies: [String]) {
         }
 
         // Pobierz nowe pliki CSV dla każdej waluty
+        let group = DispatchGroup()
         for currency in currencies {
+            group.enter()
             let fileURL = folderURL.appendingPathComponent("\(currency)_\(endDateString).csv")
             let csvURL = "https://stooq.pl/q/d/l/?s=\(currency)&d1=\(startDateString)&d2=\(endDateString)&i=d"
-            downloadCSV(from: csvURL, to: fileURL)
+            downloadCSV(from: csvURL, to: fileURL, completion: { group.leave() })
         }
+        group.wait()
     }
 }
 
-func downloadCSV(from url: String, to destination: URL) {
+func downloadCSV(from url: String, to destination: URL, completion: @escaping () -> Void) {
     AF.download(url, to: { _, _ -> (destinationURL: URL, options: DownloadRequest.Options) in
         return (destinationURL: destination, options: [.removePreviousFile, .createIntermediateDirectories])
     }).response { response in
         if response.error == nil, let path = response.fileURL?.path {
             print("The CSV file was successfully downloaded and saved as \(path)")
         }
+        completion()
     }
 }
 

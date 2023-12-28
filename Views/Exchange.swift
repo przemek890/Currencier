@@ -36,7 +36,11 @@ struct ExchangeView: View {
                 
                 Section(header: Text(language == "en" ? "Amount" : "Ilość")) {
                     TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość" ,text: $amount)
-                        .keyboardType(.decimalPad)
+                        .onChange(of: amount) {
+                            if amount.contains(",") {
+                                amount = amount.replacingOccurrences(of: ",", with: ".")
+                            }
+                        }
                 }
                 .frame(height: 40)
 
