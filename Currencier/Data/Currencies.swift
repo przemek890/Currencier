@@ -5,7 +5,8 @@ struct CurrencyConverter {
     let currencypairs = ["nokpln","usdpln","eurpln","gbppln",
                          "plnnok","usdnok","eurnok","gbpnok",
                          "plnusd","nokusd","eurusd","gbpusd",
-                         "plngbp","nokgbp","eurgbp","usdgbp"]
+                         "plngbp","nokgbp","eurgbp","usdgbp",
+                         "plneur", "nokeur","gbpeur","usdeur"]
     
     var plnRates: [String: Double] = ["PLN": 1.0]
     var nokRates: [String: Double] = ["NOK": 1.0]

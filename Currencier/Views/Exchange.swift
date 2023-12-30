@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ExchangeView: View {
-    @State private var itemSelected1 = 0
-    @State private var itemSelected2 = 1
+    @State private var itemSelected1 = 1
+    @State private var itemSelected2 = 0
     @State private var amount : String = ""
     @State private var transactionType = "Buy"
     
@@ -31,18 +31,24 @@ struct ExchangeView: View {
                             Text(currency).tag(index)
                         }
                     }
-                    
                 }
+                .frame(height: 40)
                 
                 Section(header: Text(language == "en" ? "Amount" : "Ilość")) {
                     TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość" ,text: $amount)
-                        .keyboardType(.decimalPad)
+                        .onChange(of: amount) {
+                            if amount.contains(",") {
+                                amount = amount.replacingOccurrences(of: ",", with: ".")
+                            }
+                        }
                 }
+                .frame(height: 40)
 
                 
                 Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
-                    Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected1])")
+                    Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected2, to: itemSelected1)) \(converter.currencies[itemSelected2])")
                 }
+                .frame(height: 40)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
