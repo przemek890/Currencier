@@ -10,6 +10,7 @@ struct CurrencyPairView: View {
     var isSelected: Bool
     @Binding var language: String
     
+    
     var body: some View {
         HStack {
             HStack {
@@ -116,13 +117,15 @@ struct ContentView: View {
     
     @State private var language: String = "en"
     @State private var searchText: String = ""
+    
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
 
     var body: some View {
         if dataLoader.isDataLoaded {
             NavigationView {
                 VStack {
                     Spacer() // Dodaj odstęp na górze
-                    Text("CURRENCIER")
+                    Text(language == "en" ? "CURRENCIER" : "WALUTOR")
                         .font(.largeTitle) // Zwiększ rozmiar czcionki
                         .padding()
                         .bold()
@@ -146,6 +149,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .preferredColorScheme(isDarkMode ? .dark : .light)
                 
                 .fullScreenCover(isPresented: $showChartView) {
                     ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)

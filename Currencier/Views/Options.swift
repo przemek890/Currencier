@@ -15,15 +15,34 @@ struct AuthorView: View {
     @Binding var showChartView: Bool
     
     @Binding var language: String
-    @Environment(\.colorScheme) var colorScheme
+    @AppStorage("isDarkMode") private var isDarkMode = false
     
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text(language == "en" ? "Theme" : "Motyw")) {
+                    HStack {
+                        Image("lighting")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 20)
+                        Spacer().frame(width: 20)
+                        Toggle(isOn: $isDarkMode) {
+                            if isDarkMode == false {
+                                Text(language == "en" ? "Light mode" : "Tryb jasny")
+
+                            }
+                            else {
+                                Text(language == "en" ? "Dark mode" : "Tryb ciemny")
+                            }
+                        }
+                    }
+                }
                 Section(header: Text(language == "en" ? "Language" : "Język")) {
-                    Button(action: {
-                        self.language = self.language == "en" ? "pl" : "en"
-                    }) {
+                    Toggle(isOn: Binding<Bool>(
+                        get: { self.language == "en" },
+                        set: { newValue in self.language = newValue ? "en" : "pl" }
+                    )) {
                         HStack {
                             Image(self.language == "en" ? "usd" : "pln")
                                 .resizable()
@@ -100,5 +119,6 @@ struct AuthorView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }

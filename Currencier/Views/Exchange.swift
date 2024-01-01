@@ -13,6 +13,8 @@ struct ExchangeView: View {
     
     @Binding var language: String
     
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     private let converter = CurrencyConverter()
     
     var body: some View {
@@ -53,6 +55,7 @@ struct ExchangeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
 

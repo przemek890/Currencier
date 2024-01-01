@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftUICharts
 
 struct CandleStick: View {
-    @State private var isHovered = false
     var high: Double
     var low: Double
     var open: Double
@@ -10,9 +9,10 @@ struct CandleStick: View {
     var curr: String
     var maxHighValue: Double
     var minLowValue: Double
+    @State private var isTapped: Bool = false
 
     var body: some View {
-        let scale = (maxHighValue - minLowValue) / 300
+        let scale = (maxHighValue - minLowValue) / 340
         let midValue = (maxHighValue + minLowValue) / 2
         VStack {
             // Górna cień świecy
@@ -33,8 +33,10 @@ struct CandleStick: View {
                 .offset(y: CGFloat((midValue - max(open, close)) / scale) - 8)
         }
         .padding(.horizontal, 7)
+        .offset(y: 15)
     }
 }
+
 
 
 struct ScaleBarView: View {
@@ -161,6 +163,8 @@ struct ChartView: View {
     @State private var showLineChart = true
     @State private var selectedRange = 30 // Dodaj tę zmienną
     
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let dataRows: [DataRow]
     
     init(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>, showAuthorView: Binding<Bool>, showChartView: Binding<Bool>,language:Binding<String>) {
@@ -205,7 +209,9 @@ struct ChartView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
+    
 }
 func filterDataRows(_ dataRows: [DataRow], range: Int) -> [DataRow] {
     let dateFormatter = DateFormatter()
