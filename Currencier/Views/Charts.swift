@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUICharts
 
 struct CandleStick: View {
+    @State private var isHovered = false
     var high: Double
     var low: Double
     var open: Double
@@ -11,29 +12,30 @@ struct CandleStick: View {
     var minLowValue: Double
 
     var body: some View {
-        let scale = maxHighValue - minLowValue
+        let scale = (maxHighValue - minLowValue) / 300
         let midValue = (maxHighValue + minLowValue) / 2
         VStack {
             // Górna cień świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 1, height: CGFloat((high - max(open, close)) * (350 / scale)))
-                .offset(y: CGFloat((midValue - max(open, close)) * (350 / scale)) + 8)
+                .frame(width: 1, height: CGFloat((high - max(open, close)) / scale))
+                .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
 
             // Ciało świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 10, height: CGFloat(abs(open - close)) *  (350 / scale))
-                .offset(y: CGFloat((midValue - max(open, close)) * (350 / scale)))
+                .frame(width: 10, height: max(CGFloat(abs(open - close)), scale/2) / scale)
+                .offset(y: CGFloat((midValue - max(open, close)) / scale))
             // Dolna cień świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
-                .frame(width: 1, height: CGFloat((min(open, close) - low) *  (350 / scale)))
-                .offset(y: CGFloat((midValue - max(open, close)) * (350 / scale)) - 8)
+                .frame(width: 1, height: CGFloat((min(open, close) - low) / scale))
+                .offset(y: CGFloat((midValue - max(open, close)) / scale) - 8)
         }
-        .padding(.horizontal, 7) // Dodaj marginesy poziome
+        .padding(.horizontal, 7)
     }
 }
+
 
 struct ScaleBarView: View {
     var minLowValue: Double
@@ -41,13 +43,15 @@ struct ScaleBarView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            ForEach(0..<6, id: \.self) { index in
-                let value = (maxHighValue - minLowValue) / 5 * Double(5 - index) + minLowValue
+            ForEach(0..<7, id: \.self) { index in
+                let value = (maxHighValue - minLowValue) / 6 * Double(6 - index) + minLowValue
                 HStack {
                     Text(String(format: "%.4f", value))
                         .font(.system(size: 10))
+                        .alignmentGuide(.leading) { d in d[.bottom] }
                     Spacer()
                     Divider()
+                        .frame(height: 50)
                 }
             }
         }
@@ -83,11 +87,14 @@ struct CandleChartsView: View {
                                 .frame(height: 400) // Ustawienie stałej wysokości dla HStack
                                 .background(
                                     VStack {
-                                        ForEach(0..<6, id: \.self) { _ in
+                                        ForEach(0..<14, id: \.self) { index in
                                             Divider()
                                             Spacer()
                                         }
+                                        Divider()
                                     }
+                                    .alignmentGuide(.leading) { d in d[.bottom] }
+
                                 )
                             }
                         }
