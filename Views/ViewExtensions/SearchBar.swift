@@ -17,7 +17,7 @@ struct SearchBar: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                        
+
                         if !text.isEmpty {
                             Button(action: {
                                 self.text = ""

@@ -1,4 +1,3 @@
-
 struct DataRow {
     let currency: String
     let date: String
