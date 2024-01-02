@@ -9,24 +9,31 @@ struct OptionsView: View {
     
     @Binding var language: String
     @AppStorage("isDarkMode") private var isDarkMode = false
+    @AppStorage("isWhiteBlack") private var isWhiteBlack = false
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text(language == "en" ? "Theme" : "Motyw")) {
-                    HStack {
-                        Image("lighting")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 20)
-                        Spacer().frame(width: 20)
-                        Toggle(isOn: $isDarkMode) {
-                            if isDarkMode == false {
-                                Text(language == "en" ? "Light mode" : "Tryb jasny")
-
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Image("lighting")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 20)
+                            Spacer().frame(width: 20)
+                            Toggle(isOn: $isDarkMode) {
+                                Text(isDarkMode ? (language == "en" ? "Dark mode" : "Tryb ciemny") : (language == "en" ? "Light mode" : "Tryb jasny"))
                             }
-                            else {
-                                Text(language == "en" ? "Dark mode" : "Tryb ciemny")
+                        }
+                        HStack {
+                            Image(isWhiteBlack ? "white-black" : "green-red")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 35)
+                            Spacer().frame(width: 17)
+                            Toggle(isOn: $isWhiteBlack) {
+                                Text(isWhiteBlack ? (language == "en" ? "White-black mode" : "Tryb biało-czarny") : (language == "en" ? "Green-red mode" : "Tryb zielono-czerwony"))
                             }
                         }
                     }

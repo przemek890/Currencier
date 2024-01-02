@@ -14,25 +14,32 @@ struct CandleStick: View {
     @Binding var selectedCandle: Int?
     @Binding var selectedCurrency: String?
     @AppStorage("isDarkMode") private var isDarkMode = false
+    
+    @AppStorage("isWhiteBlack") private var isWhiteBlack = false
 
     var body: some View {
-        let scale = (maxHighValue - minLowValue) / 340
-        let midValue = (maxHighValue + minLowValue) / 2
+           let scale = (maxHighValue - minLowValue) / 340
+           let midValue = (maxHighValue + minLowValue) / 2
         VStack {
             // Górna cień świecy
             Rectangle()
-                .fill(close > open ? Color.green : Color.red)
+                .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((high - max(open, close)) / scale))
+                .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
                 .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
+
             // Ciało świecy
             Rectangle()
-                .fill(close > open ? Color.green : Color.red)
-                .frame(width: 10, height: max(CGFloat(abs(open - close)), scale/2) / scale)
+                .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
+                .frame(width: 10, height: max(CGFloat(abs(open - close)), scale/1.75) / scale)
+                .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
                 .offset(y: CGFloat((midValue - max(open, close)) / scale))
+
             // Dolna cień świecy
             Rectangle()
-                .fill(close > open ? Color.green : Color.red)
+                .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((min(open, close) - low) / scale))
+                .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
                 .offset(y: CGFloat((midValue - max(open, close)) / scale) - 8)
         }
         .padding(.horizontal, 10)
