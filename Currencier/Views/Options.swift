@@ -39,10 +39,9 @@ struct AuthorView: View {
                     }
                 }
                 Section(header: Text(language == "en" ? "Language" : "Język")) {
-                    Toggle(isOn: Binding<Bool>(
-                        get: { self.language == "en" },
-                        set: { newValue in self.language = newValue ? "en" : "pl" }
-                    )) {
+                    Button(action: {
+                        self.language = self.language == "en" ? "pl" : "en"
+                    }) {
                         HStack {
                             Image(self.language == "en" ? "usd" : "pln")
                                 .resizable()

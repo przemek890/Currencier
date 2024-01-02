@@ -1,7 +1,20 @@
 import SwiftUI
 import SwiftUICharts
 
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.closeSubpath()
+        return path
+    }
+}
+
 struct CandleStick: View {
+    var id: Int
+    var date: String
     var high: Double
     var low: Double
     var open: Double
@@ -9,7 +22,9 @@ struct CandleStick: View {
     var curr: String
     var maxHighValue: Double
     var minLowValue: Double
-    @State private var isTapped: Bool = false
+    @Binding var selectedCandle: Int?
+    @Binding var selectedCurrency: String?
+    @AppStorage("isDarkMode") private var isDarkMode = false
 
     var body: some View {
         let scale = (maxHighValue - minLowValue) / 340
@@ -20,7 +35,6 @@ struct CandleStick: View {
                 .fill(close > open ? Color.green : Color.red)
                 .frame(width: 1, height: CGFloat((high - max(open, close)) / scale))
                 .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
-
             // Ciało świecy
             Rectangle()
                 .fill(close > open ? Color.green : Color.red)
@@ -32,11 +46,91 @@ struct CandleStick: View {
                 .frame(width: 1, height: CGFloat((min(open, close) - low) / scale))
                 .offset(y: CGFloat((midValue - max(open, close)) / scale) - 8)
         }
-        .padding(.horizontal, 7)
+        .padding(.horizontal, 10)
         .offset(y: 15)
+        if selectedCandle == id && curr == selectedCurrency {
+            VStack {
+                Text("Currency: \(curr) [\(date)]")
+                    .font(.system(size: 12))
+                    .bold()
+                Text("Open: \(open)")
+                    .font(.system(size: 12))
+                Text("High: \(high)")
+                    .font(.system(size: 12))
+                Text("Low: \(low)")
+                    .font(.system(size: 12))
+                Text("Close: \(close)")
+                    .font(.system(size: 12))
+            }
+            .padding(.horizontal, 10)
+            .background(isDarkMode ? Color.black : Color.white)
+            .cornerRadius(10)
+            .shadow(radius: 10)
+            .foregroundColor(isDarkMode ? Color.white : Color.black)
+            .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
+            .overlay(
+                Triangle()
+                    .fill(isDarkMode ? Color.black : Color.white)
+                    .frame(width: 20, height: 20)
+                    .rotationEffect(.degrees(-90))
+                    .offset(x: -10,y: CGFloat((midValue - max(open, close)) / scale) + 8),
+                alignment: .leading
+            )
+        }
     }
 }
 
+
+struct CandleChartsView: View {
+    @Binding var searchText: String
+    @Binding var language: String
+    let dataRows: [DataRow]
+    @Binding var selectedCandle: Int?
+    @State private var selectedCurrency: String? // Dodajemy nową zmienną stanu
+
+    var body: some View {
+        Form {
+            // Grupuj dane według waluty
+            let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
+            ForEach(groupedData.keys.sorted(), id: \.self) { currency in
+                if currency.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
+                    Section(header: Text(currency)) {
+                        HStack {
+                            // Oblicz minLowValue i maxHighValue dla bieżącej pary walutowej
+                            let minLowValue = groupedData[currency]!.compactMap({ $0.low != 0 ? $0.low : nil }).min() ?? 0
+                            let maxHighValue = groupedData[currency]!.map({ $0.high }).max() ?? 0
+                            ScaleBarView(minLowValue: minLowValue, maxHighValue: maxHighValue)
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(groupedData[currency]!.indices, id: \.self) { index in
+                                        let dataRow = groupedData[currency]![index]
+                                        CandleStick(id: index,date: dataRow.date, high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close,curr: currency, maxHighValue: maxHighValue,minLowValue: minLowValue, selectedCandle: $selectedCandle, selectedCurrency: $selectedCurrency)
+                                            .onTapGesture {
+                                                self.selectedCandle = index
+                                                self.selectedCurrency = currency
+                                            }
+                                    }
+                                }
+                                .frame(height: 400)
+                                .background(
+                                    VStack {
+                                        ForEach(0..<14, id: \.self) { index in
+                                            Divider()
+                                            Spacer()
+                                        }
+                                        Divider()
+                                    }
+                                    .alignmentGuide(.leading) { d in d[.bottom] }
+                                    .onTapGesture { self.selectedCandle = nil }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 struct ScaleBarView: View {
@@ -61,51 +155,6 @@ struct ScaleBarView: View {
     }
 }
 
-struct CandleChartsView: View {
-    @Binding var searchText: String
-    @Binding var language: String
-    let dataRows: [DataRow]
-
-    var body: some View {
-        Form {
-            // Grupuj dane według waluty
-            let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
-            ForEach(groupedData.keys.sorted(), id: \.self) { currency in
-                if currency.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
-                    Section(header: Text(currency)) {
-                        HStack {
-                            // Oblicz minLowValue i maxHighValue dla bieżącej pary walutowej
-                            let minLowValue = groupedData[currency]!.compactMap({ $0.low != 0 ? $0.low : nil }).min() ?? 0
-                            let maxHighValue = groupedData[currency]!.map({ $0.high }).max() ?? 0
-                            ScaleBarView(minLowValue: minLowValue, maxHighValue: maxHighValue)
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    ForEach(groupedData[currency]!.indices, id: \.self) { index in
-                                        let dataRow = groupedData[currency]![index]
-                                        CandleStick(high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close,
-                                                    curr: currency, maxHighValue: maxHighValue,minLowValue: minLowValue)
-                                    }
-                                }
-                                .frame(height: 400) // Ustawienie stałej wysokości dla HStack
-                                .background(
-                                    VStack {
-                                        ForEach(0..<14, id: \.self) { index in
-                                            Divider()
-                                            Spacer()
-                                        }
-                                        Divider()
-                                    }
-                                    .alignmentGuide(.leading) { d in d[.bottom] }
-
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 
@@ -161,9 +210,11 @@ struct ChartView: View {
     
     @State private var searchText = ""
     @State private var showLineChart = true
-    @State private var selectedRange = 30 // Dodaj tę zmienną
+    @State private var selectedRange = 30
+    @State private var selectedCandle: Int?
     
     @AppStorage("isDarkMode") private var isDarkMode = false
+    
     
     let dataRows: [DataRow]
     
@@ -203,8 +254,11 @@ struct ChartView: View {
                 if showLineChart {
                     LineChartView(searchText: $searchText,language: $language, dataRows: filterDataRows(dataRows, range: selectedRange))
                 } else {
-                    CandleChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange))
+                    CandleChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange), selectedCandle: $selectedCandle) // Przekazujemy selectedCandle
                 }
+            }
+            .onChange(of: selectedRange) { _ , _ in
+                self.selectedCandle = nil
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })

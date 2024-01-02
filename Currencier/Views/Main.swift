@@ -23,7 +23,7 @@ struct CurrencyPairView: View {
             if isSelected {
                 let change = close - open
                 Text("\(language == "en" ? "Change from last day: " : "Zmiana wzgledem ostatniego dnia: ")\(String(format: "%.2f", change * 100 / open))%")
-                    .font(.system(size: 11))
+                    .font(.system(size: 14))
                     .foregroundColor(change > 0 ? .green : .red)
             } else {
                 Text("\(String(format: "%.4f", open))")
