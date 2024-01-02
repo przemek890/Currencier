@@ -1,4 +1,5 @@
 import SwiftUI
+//----------------------------------------------------
 
 struct CurrencyPairView: View {
     var currency1: String

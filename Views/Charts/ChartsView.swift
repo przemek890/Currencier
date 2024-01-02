@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUICharts
+//----------------------------------------------------
 
 struct ChartView: View {
     @Binding var showMainView: Bool
@@ -25,11 +26,7 @@ struct ChartView: View {
         self._showChartView = showChartView
         self._language = language
 
-        self.dataRows = loadCSVData(currencies: ["nokpln","usdpln","eurpln","gbppln",
-                                                 "plnnok","usdnok","eurnok","gbpnok",
-                                                 "plnusd","nokusd","eurusd","gbpusd",
-                                                 "plngbp","nokgbp","eurgbp","usdgbp",
-                                                 "plneur", "nokeur","gbpeur","usdeur"])
+        self.dataRows = loadCSVData(currencies: Global.currencypairs)
     }
 
     var body: some View {

@@ -1,4 +1,5 @@
 import SwiftUI
+//----------------------------------------------------
 
 struct CandleChartsView: View {
     @Binding var searchText: String

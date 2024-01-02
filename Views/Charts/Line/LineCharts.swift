@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUICharts
+//----------------------------------------------------
 
 struct LineChartsView: View {
     @Binding var searchText: String

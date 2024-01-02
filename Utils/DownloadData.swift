@@ -2,7 +2,6 @@ import Foundation
 import Alamofire
 //----------------------------------------------------
 
-
 func getData(currencies: [String]) {
     let fileManager = FileManager.default
     let directoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]

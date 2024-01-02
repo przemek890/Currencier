@@ -1,4 +1,5 @@
 import SwiftUI
+//----------------------------------------------------
 
 struct ScaleBarView: View {
     var minLowValue: Double

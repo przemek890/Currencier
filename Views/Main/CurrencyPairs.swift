@@ -1,11 +1,7 @@
 import SwiftUI
+//----------------------------------------------------
 
 struct CurrencyPairsView: View {
-    let currencyPairs = ["nokpln","usdpln","eurpln","gbppln",
-                         "plnnok","usdnok","eurnok","gbpnok",
-                         "plnusd","nokusd","eurusd","gbpusd",
-                         "plngbp","nokgbp","eurgbp","usdgbp",
-                         "plneur", "nokeur","gbpeur","usdeur"]
     
     @State private var selectedCurrencyPair: String? = nil
     @Binding var language: String
@@ -16,7 +12,7 @@ struct CurrencyPairsView: View {
     init(language: Binding<String>, searchText: Binding<String>) {
         self._language = language
         self._searchText = searchText
-        self.dataRows = loadCSVData(currencies: currencyPairs)
+        self.dataRows = loadCSVData(currencies: Global.currencypairs)
     }
 
     var body: some View {

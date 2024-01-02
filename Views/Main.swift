@@ -1,4 +1,5 @@
 import SwiftUI
+//----------------------------------------------------
 
 struct ContentView: View {
     @StateObject private var dataLoader = DataLoader()
@@ -68,7 +69,7 @@ struct ContentView: View {
     }
 }
 
-//#Preview { // Turn on iPhone view
+//#Preview { // Turn on IOS view
 //    ContentView()
 //}
 

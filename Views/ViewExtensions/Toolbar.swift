@@ -1,4 +1,5 @@
 import SwiftUI
+//----------------------------------------------------
 
 func createToolbar(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>,
                    showOptionsView: Binding<Bool>, showChartView: Binding<Bool>,language: Binding<String>) -> some ToolbarContent {
