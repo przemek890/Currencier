@@ -1,17 +1,10 @@
-//
-//  Author.swift
-//  Currencier
-//
-//  Created by przemek899 on 21/12/2023.
-//
-
 import SwiftUI
+//----------------------------------------------------
 
-
-struct AuthorView: View {
+struct OptionsView: View {
     @Binding var showMainView: Bool
     @Binding var showExchangeView: Bool
-    @Binding var showAuthorView: Bool
+    @Binding var showOptionsView: Bool
     @Binding var showChartView: Bool
     
     @Binding var language: String
@@ -116,7 +109,7 @@ struct AuthorView: View {
                     }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
+            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }

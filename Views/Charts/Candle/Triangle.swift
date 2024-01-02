@@ -1,3 +1,5 @@
+import SwiftUI
+
 struct Triangle: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()

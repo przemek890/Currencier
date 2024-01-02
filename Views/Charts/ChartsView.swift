@@ -4,7 +4,7 @@ import SwiftUICharts
 struct ChartView: View {
     @Binding var showMainView: Bool
     @Binding var showExchangeView: Bool
-    @Binding var showAuthorView: Bool
+    @Binding var showOptionsView: Bool
     @Binding var showChartView: Bool
     @Binding var language: String
 
@@ -18,10 +18,10 @@ struct ChartView: View {
 
     let dataRows: [DataRow]
 
-    init(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>, showAuthorView: Binding<Bool>, showChartView: Binding<Bool>,language:Binding<String>) {
+    init(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>, showOptionsView: Binding<Bool>, showChartView: Binding<Bool>,language:Binding<String>) {
         self._showMainView = showMainView
         self._showExchangeView = showExchangeView
-        self._showAuthorView = showAuthorView
+        self._showOptionsView = showOptionsView
         self._showChartView = showChartView
         self._language = language
 
@@ -61,7 +61,7 @@ struct ChartView: View {
                 self.selectedCandle = nil
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
+            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }

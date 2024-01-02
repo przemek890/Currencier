@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+//----------------------------------------------------
 
 
 func getData(currencies: [String]) {

@@ -8,7 +8,7 @@ struct ExchangeView: View {
     
     @Binding var showMainView: Bool
     @Binding var showExchangeView: Bool
-    @Binding var showAuthorView: Bool
+    @Binding var showOptionsView: Bool
     @Binding var showChartView: Bool
     
     @Binding var language: String
@@ -53,7 +53,7 @@ struct ExchangeView: View {
                 .frame(height: 40)
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
+            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }

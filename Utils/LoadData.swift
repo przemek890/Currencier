@@ -1,4 +1,5 @@
 import Foundation
+//----------------------------------------------------
 
 func loadCSVData(currencies: [String]) -> [DataRow] {
     var dataRows: [DataRow] = []

@@ -113,7 +113,7 @@ struct ContentView: View {
     @State private var showMainView = true
     @State private var showChartView = false
     @State private var showExchangeView = false
-    @State private var showAuthorView = false
+    @State private var showOptionsView = false
     
     @State private var language: String = "en"
     @State private var searchText: String = ""
@@ -152,17 +152,17 @@ struct ContentView: View {
                 .preferredColorScheme(isDarkMode ? .dark : .light)
                 
                 .fullScreenCover(isPresented: $showChartView) {
-                    ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
+                    ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
                 }
-                .fullScreenCover(isPresented: $showAuthorView) {
-                    AuthorView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
+                .fullScreenCover(isPresented: $showOptionsView) {
+                    OptionsView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
                 }
                 .fullScreenCover(isPresented: $showExchangeView) {
-                    ExchangeView(showMainView: $showMainView, showExchangeView: $showExchangeView, showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language)
+                    ExchangeView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView,
-                                                  showAuthorView: $showAuthorView, showChartView: $showChartView,language: $language) })
+                                                  showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
             }
             .navigationViewStyle(StackNavigationViewStyle())
         } 
