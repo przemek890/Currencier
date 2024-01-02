@@ -27,16 +27,16 @@ struct CurrencyPairView: View {
                     .font(.system(size: 14))
                     .foregroundColor(change > 0 ? .green : .red)
             } else {
-                Text("\(String(format: "%.4f", open))")
+                Text("\(String(format: open >= 100 ? "%.2f" : open >= 10 ? "%.3f" : "%.4f", open))")
                     .font(.system(size: 14))
                 Spacer()
-                Text("\(String(format: "%.4f", high))")
+                Text("\(String(format: high >= 100 ? "%.2f" : high >= 10 ? "%.3f" : "%.4f", high))")
                     .font(.system(size: 14))
                 Spacer()
-                Text("\(String(format: "%.4f", low))")
+                Text("\(String(format: low >= 100 ? "%.2f" : low >= 10 ? "%.3f" : "%.4f", low))")
                     .font(.system(size: 14))
                 Spacer()
-                Text("\(String(format: "%.4f", close))")
+                Text("\(String(format: close >= 100 ? "%.2f" : close >= 10 ? "%.3f" : "%.4f", close))")
                     .font(.system(size: 14))
             }
         }

@@ -138,6 +138,7 @@
 		34056C3B2B446F2600444C2E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3462DB962B445E2D00BD9DA1 /* Main.swift */,
 				34056C3C2B446F4500444C2E /* CurrencyPair.swift */,
 				34056C3E2B446F6800444C2E /* CurrencyPairs.swift */,
 			);
@@ -171,7 +172,6 @@
 				340437632B4467D000AC22E5 /* Charts */,
 				346BC55D2B34ED4200DC902C /* Options.swift */,
 				3454451D2B33B1FF0004290E /* Exchange.swift */,
-				3462DB962B445E2D00BD9DA1 /* Main.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
