@@ -11,15 +11,20 @@ struct CurrencyPairView: View {
     var isSelected: Bool
     @Binding var language: String
     
-    
     var body: some View {
         HStack {
-            HStack {
-                Image(currency1)
-                Image(currency2)
-                    .offset(x: -17)
+            if isSelected {
+                Text("\(currency1.uppercased())/\(currency2.uppercased())")
+                    .font(.system(size: 14))
+                    .offset(x: 26)
+            } else {
+                HStack {
+                    Image(currency1)
+                    Image(currency2)
+                        .offset(x: -17)
+                }
+                .scaleEffect(0.40)
             }
-            .scaleEffect(0.40)
             Spacer()
             if isSelected {
                 let change = close - open
@@ -40,6 +45,6 @@ struct CurrencyPairView: View {
                     .font(.system(size: 14))
             }
         }
-        .frame(height: 50) // Zwiększ wysokość wiersza
+        .frame(height: 50)
     }
 }

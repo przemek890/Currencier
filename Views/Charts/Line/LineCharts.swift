@@ -22,16 +22,19 @@ struct LineChartsView: View {
             ScrollView {
                 VStack {
                     ForEach(groupedData.keys.sorted(), id: \.self) { currency in
-                        // Filtruj dane, które mają wartość 0
                         let filteredData = groupedData[currency]!.filter { $0.open != 0 && $0.close != 0 }
-
+                        
+                        let firstDate = filteredData.first!.date
+                        let lastDate = filteredData.last!.date
+                        let dateRange = "\(firstDate) - \(lastDate)"
+                        
                         let data = filteredData.map { dataRow -> Double in
                             let average = (dataRow.open + dataRow.close) / 2
                             return average
                         }
 
                         if currency.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
-                            LineView(data: data, title: currency, legend: currency, valueSpecifier: "%.4f")
+                            LineView(data: data, title: currency, legend: dateRange, valueSpecifier: "%.4f")
                                 .padding()
                                 .frame(height: 400)
                         }
