@@ -41,9 +41,9 @@ struct ChartView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
                 Picker(language == "en" ? "Range" : "Zakres", selection: $selectedRange) {
-                    Text(language == "en" ? "Month" : "Miesiąc").tag(30)
-                    Text(language == "en" ? "Half Year" : "Pół roku").tag(182)
-                    Text(language == "en" ? "Year" : "Rok").tag(365)
+                    Text(language == "en" ? "Week" : "Tydzień").tag(8)
+                    Text(language == "en" ? "Month" : "Miesiąc").tag(31)
+                    Text(language == "en" ? "Year" : "Rok").tag(366)
                 }
                 .frame(height: 20)
                 .pickerStyle(SegmentedPickerStyle())

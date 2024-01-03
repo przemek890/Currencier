@@ -10,7 +10,7 @@ struct ScaleBarView: View {
             ForEach(0..<7, id: \.self) { index in
                 let value = (maxHighValue - minLowValue) / 6 * Double(6 - index) + minLowValue
                 HStack {
-                    Text(String(format: minLowValue >= 100 ? "%.2f" : minLowValue >= 10 ? "%.3f" : "%.4f", minLowValue))
+                    Text(String(format: value >= 100 ? "%.2f" : value >= 10 ? "%.3f" : "%.4f", value))
                         .font(.system(size: 10))
                         .alignmentGuide(.leading) { d in d[.bottom] }
                     Spacer()

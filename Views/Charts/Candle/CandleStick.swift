@@ -11,39 +11,41 @@ struct CandleStick: View {
     var curr: String
     var maxHighValue: Double
     var minLowValue: Double
+    
     @Binding var selectedCandle: Int?
     @Binding var selectedCurrency: String?
-    @AppStorage("isDarkMode") private var isDarkMode = false
     
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @AppStorage("isWhiteBlack") private var isWhiteBlack = false
-
+    
     var body: some View {
-           let scale = (maxHighValue - minLowValue) / 340
-           let midValue = (maxHighValue + minLowValue) / 2
+        let scale = (maxHighValue - minLowValue) / 343
+        let high_low = (high - low) / 2
+        let g_high_g_low = (maxHighValue - minLowValue) / 2
+        let off = CGFloat((high_low - g_high_g_low) / scale + (maxHighValue - high) / scale)
         VStack {
             // Górna cień świecy
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((high - max(open, close)) / scale))
                 .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
-                .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
+                .offset(y: 8)
 
             // Ciało świecy
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
-                .frame(width: 10, height: max(CGFloat(abs(open - close)), scale/1.75) / scale)
+                .frame(width: 10, height: max(CGFloat(abs(open - close)), scale) / scale)
                 .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
-                .offset(y: CGFloat((midValue - max(open, close)) / scale))
 
             // Dolna cień świecy
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((min(open, close) - low) / scale))
                 .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
-                .offset(y: CGFloat((midValue - max(open, close)) / scale) - 8)
+                .offset(y: -8)
         }
+        .offset(y: off)
         .padding(.horizontal, 10)
-        .offset(y: 15)
         if selectedCandle == id && curr == selectedCurrency {
             VStack {
                 Text("Currency: \(curr) [\(date)]")
@@ -63,13 +65,13 @@ struct CandleStick: View {
             .cornerRadius(10)
             .shadow(radius: 10)
             .foregroundColor(isDarkMode ? Color.white : Color.black)
-            .offset(y: CGFloat((midValue - max(open, close)) / scale) + 8)
+            .offset(y: off + 8)
             .overlay(
                 Triangle()
                     .fill(isDarkMode ? Color.black : Color.white)
                     .frame(width: 20, height: 20)
                     .rotationEffect(.degrees(-90))
-                    .offset(x: -10,y: CGFloat((midValue - max(open, close)) / scale) + 8),
+                    .offset(x: -10,y: off + 8),
                 alignment: .leading
             )
         }

@@ -20,18 +20,20 @@ struct CandleChartsView: View {
                             let minLowValue = groupedData[currency]!.compactMap({ $0.low != 0 ? $0.low : nil }).min() ?? 0
                             let maxHighValue = groupedData[currency]!.map({ $0.high }).max() ?? 0
                             ScaleBarView(minLowValue: minLowValue, maxHighValue: maxHighValue)
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    ForEach(groupedData[currency]!.indices, id: \.self) { index in
-                                        let dataRow = groupedData[currency]![index]
-                                        CandleStick(id: index,date: dataRow.date, high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close,curr: currency, maxHighValue: maxHighValue,minLowValue: minLowValue, selectedCandle: $selectedCandle, selectedCurrency: $selectedCurrency)
-                                            .onTapGesture {
-                                                self.selectedCandle = index
-                                                self.selectedCurrency = currency
-                                            }
+                            ZStack {
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(groupedData[currency]!.indices, id: \.self) { index in
+                                            let dataRow = groupedData[currency]![index]
+                                            CandleStick(id: index,date: dataRow.date, high: dataRow.high, low: dataRow.low, open: dataRow.open, close: dataRow.close,curr: currency, maxHighValue: maxHighValue,minLowValue: minLowValue, selectedCandle: $selectedCandle, selectedCurrency: $selectedCurrency)
+                                                .onTapGesture {
+                                                    self.selectedCandle = index
+                                                    self.selectedCurrency = currency
+                                                }
+                                        }
                                     }
+                                    .frame(height: 400)
                                 }
-                                .frame(height: 400)
                                 .background(
                                     VStack {
                                         ForEach(0..<14, id: \.self) { index in
@@ -41,9 +43,9 @@ struct CandleChartsView: View {
                                         Divider()
                                     }
                                     .alignmentGuide(.leading) { d in d[.bottom] }
-                                    .onTapGesture { self.selectedCandle = nil }
                                 )
                             }
+                            .onTapGesture { self.selectedCandle = nil }
                         }
                     }
                 }
