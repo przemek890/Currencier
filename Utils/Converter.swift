@@ -34,6 +34,8 @@ struct CurrencyConverter {
         let fromCurrency = currencies[from]
         let toCurrency = currencies[to]
         
+        if (amount < 0) {return "0.00";}
+        
         if fromCurrency.lowercased() == toCurrency.lowercased() {
             return String(format: "%.2f", amount)
         }

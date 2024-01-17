@@ -45,8 +45,8 @@ struct ExchangeView: View {
                         }
                 }
                 .frame(height: 40)
-
                 
+
                 Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
                     Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected2, to: itemSelected1)) \(converter.currencies[itemSelected2])")
                 }
