@@ -14,22 +14,29 @@ ___
 
 - Candlestick charts with the ability to check opening, closing, and the highest and lowest prices for a specific currency on a given day, presented in two color schemes:
 
-
-![Candle_1](Visualization/candle_1.png)
+<div align="center">
+    <img  src="Visualization/candle_1.png" height="300"/>
+</div>
 <div align="center" style="font-weight: bold">GREEN-RED</div>
 
 <br/>
 
-![Candle_2](Visualization/candle_2.png)
+<div align="center">
+    <img  src="Visualization/candle_2.png" height="300"/>
+</div>
 <div align="center" style="font-weight: bold ">BLACK-WHITE</div>
 
 ___
 
 - Line charts were created using SwiftUICharts:
 
-![Line_1](Visualization/line_1.png)
-
-![Line_2](Visualization/line_2.png)
+<div align="center">
+    <img  src="Visualization/line_1.png" height="300"/>
+</div>
+<br/>
+<div align="center">
+    <img  src="Visualization/line_2.png" height="300"/>
+</div>
 
 ___
 
@@ -44,11 +51,10 @@ ___
 
 ___
 
-<div align="center" style="font-weight: bold">Available currency pairs:</div>
-
+<div style="font-weight: bold">Available currency pairs:</div>
 <div>
     <div>
-        <table>
+        <table >
                 <tr>
                     <th>&nbsp;</th>
                     <th>PLN</th>
