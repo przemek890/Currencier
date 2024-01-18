@@ -35,11 +35,11 @@ ___
 
 - Converter for selected currency pairs:
 
-<div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap;">
+<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
     <div style="margin-right: 0%;">
         <img width="200" src="Visualization/converter.png"/>
     </div>
-    <div style="margin-left: -80px;">
+    <div style="margin-left: 0px;">
         <table style="transform: scale(0.75);">
                 <tr>
                     <th>&nbsp;</th>
