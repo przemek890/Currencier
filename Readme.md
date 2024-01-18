@@ -34,13 +34,21 @@ ___
 ___
 
 - Converter for selected currency pairs:
+- Language selection option (English/Polish)
+- Color theme selection option - light/dark
+- Author information and source pages
 
-<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
-    <div style="margin-right: 0%;">
-        <img width="200" src="Visualization/converter.png"/>
-    </div>
-    <div style="margin-left: 0px;">
-        <table style="transform: scale(0.75);">
+<div align="center">
+    <img  src="Visualization/converter.png" width="200"/> <img src="Visualization/author.png" width="200"/>
+</div>
+
+___
+
+<div align="center" style="font-weight: bold">Available currency pairs:</div>
+
+<div>
+    <div>
+        <table>
                 <tr>
                     <th>&nbsp;</th>
                     <th>PLN</th>
@@ -125,9 +133,3 @@ ___
         </div>
     </div>
 </div>
-
-___
-
-- Language selection option (English/Polish)
-- Color theme selection option - light/dark
-- Author information and source pages
