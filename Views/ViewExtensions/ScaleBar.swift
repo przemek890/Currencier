@@ -11,15 +11,15 @@ struct ScaleBarView: View {
                 let value = (maxHighValue - minLowValue) / 6 * Double(6 - index) + minLowValue
                 HStack {
                     Text(String(format: value >= 100 ? "%.2f" : value >= 10 ? "%.3f" : "%.4f", value))
-                        .font(.system(size: 10))
+                        .font(.system(size: 8))
                         .alignmentGuide(.leading) { d in d[.bottom] }
                     Spacer()
                     Divider()
-                        .frame(height: 50)
+                        .frame(height: 37.5)
                 }
             }
         }
-        .frame(width: 50)
+        .frame(width: 37.5)
     }
 }
 

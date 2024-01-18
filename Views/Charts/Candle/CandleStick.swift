@@ -19,7 +19,7 @@ struct CandleStick: View {
     @AppStorage("isWhiteBlack") private var isWhiteBlack = false
     
     var body: some View {
-        let scale = (maxHighValue - minLowValue) / 343
+        let scale = (maxHighValue - minLowValue) / 257
         let high_low = (high - low) / 2
         let g_high_g_low = (maxHighValue - minLowValue) / 2
         let off = CGFloat((high_low - g_high_g_low) / scale + (maxHighValue - high) / scale)
@@ -45,7 +45,7 @@ struct CandleStick: View {
                 .offset(y: -8)
         }
         .offset(y: off)
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 7.5)
         if selectedCandle == id && curr == selectedCurrency {
             VStack {
                 Text("Currency: \(curr) [\(date)]")
@@ -60,7 +60,7 @@ struct CandleStick: View {
                 Text("Close: \(close)")
                     .font(.system(size: 12))
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 7.5)
             .background(isDarkMode ? Color.black : Color.white)
             .cornerRadius(10)
             .shadow(radius: 10)
@@ -71,7 +71,7 @@ struct CandleStick: View {
                     .fill(isDarkMode ? Color.black : Color.white)
                     .frame(width: 20, height: 20)
                     .rotationEffect(.degrees(-90))
-                    .offset(x: -10,y: off + 8),
+                    .offset(x: -7.5,y: off + 8),
                 alignment: .leading
             )
         }

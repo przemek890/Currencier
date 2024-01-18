@@ -39,7 +39,7 @@ struct ChartView: View {
                             Text(language == "en" ? "Line" : "Liniowy").tag(true)
                             Text(language == "en" ? "Candle" : "Świecowy").tag(false)
                         }
-                        .frame(height: 20)
+                        .frame(height: 15)
                         .pickerStyle(SegmentedPickerStyle())
                         .padding()
                         Picker(language == "en" ? "Range" : "Zakres", selection: $selectedRange) {
@@ -47,7 +47,7 @@ struct ChartView: View {
                             Text(language == "en" ? "Month" : "Miesiąc").tag(31)
                             Text(language == "en" ? "Year" : "Rok").tag(366)
                         }
-                        .frame(height: 20)
+                        .frame(height: 15)
                         .pickerStyle(SegmentedPickerStyle())
                         .padding()
                     }

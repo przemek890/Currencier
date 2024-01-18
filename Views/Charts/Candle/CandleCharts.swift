@@ -32,7 +32,7 @@ struct CandleChartsView: View {
                                                 }
                                         }
                                     }
-                                    .frame(height: 400)
+                                    .frame(height: 300)
                                 }
                                 .background(
                                     VStack {

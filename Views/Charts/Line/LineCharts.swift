@@ -38,7 +38,7 @@ struct LineChartsView: View {
                         if currency.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                             LineView(data: data, title: currency, legend: dateRange, valueSpecifier: specifier, legendSpecifier: specifier)
                                 .padding()
-                                .frame(height: 400)
+                                .frame(height: 350)
                         }
                     }
                 }
