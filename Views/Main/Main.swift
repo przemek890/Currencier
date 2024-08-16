@@ -4,11 +4,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var dataLoader = DataLoader()
 
-    @State private var showMainView = true
-    @State private var showChartView = false
-    @State private var showExchangeView = false
-    @State private var showOptionsView = false
-    
+    @State private var selectedTab: Int = 0
     @State private var language: String = "en"
     @State private var searchText: String = ""
     
@@ -16,55 +12,37 @@ struct ContentView: View {
 
     var body: some View {
         if dataLoader.isDataLoaded {
-            NavigationView {
-                VStack {
-                    Spacer() // Dodaj odstęp na górze
-                    Text(language == "en" ? "CURRENCIER" : "WALUTOR")
-                        .font(.largeTitle) // Zwiększ rozmiar czcionki
-                        .padding()
-                        .bold()
-                        .opacity(0.5)
-                    SearchBar(text: $searchText, language: $language)
-                    Form {
-                        Section(header:
-                                    HStack {
-                            Text(language == "en" ? "Currency pairs" : "Pary walutowe")
-                            Spacer()
-                            Text(language == "en" ? "Open" : "Otwarcie")
-                            Spacer()
-                            Text(language == "en" ? "High" : "Najwyższy" )
-                            Spacer()
-                            Text(language == "en" ? "Low" : "Najniższy")
-                            Spacer()
-                            Text(language == "en" ? "Close" : "Zamknięcie")
-                        }
-                        ) {
-                            CurrencyPairsView(language: $language,searchText: $searchText)
-                        }
+            TabView(selection: $selectedTab) {
+                MainView(searchText: $searchText, language: $language)
+                    .tabItem {
+                        Label(language == "en" ? "Main" : "Menu główne", systemImage: "house")
                     }
-                }
-                .preferredColorScheme(isDarkMode ? .dark : .light)
+                    .tag(0)
                 
-                .fullScreenCover(isPresented: $showChartView) {
-                    ChartView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
-                }
-                .fullScreenCover(isPresented: $showOptionsView) {
-                    OptionsView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
-                }
-                .fullScreenCover(isPresented: $showExchangeView) {
-                    ExchangeView(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language)
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView,
-                                                  showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
+                ExchangeView(language: $language)
+                    .tabItem {
+                        Label(language == "en" ? "Exchange" : "Wymiana", systemImage: "arrow.left.arrow.right")
+                    }
+                    .tag(1)
+                
+                ChartView(language: $language)
+                    .tabItem {
+                        Label(language == "en" ? "Charts" : "Wykresy", systemImage: "chart.bar")
+                    }
+                    .tag(2)
+                
+                OptionsView(language: $language)
+                    .tabItem {
+                        Label(language == "en" ? "Options" : "Opcje", systemImage: "gear")
+                    }
+                    .tag(3)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-        } 
-        else {
+            .preferredColorScheme(isDarkMode ? .dark : .light)
+        } else {
             Text(language == "en" ? "Loading..." : "Ładowanie")
                 .onAppear {
                     dataLoader.loadData()
-            }
+                }
         }
     }
 }

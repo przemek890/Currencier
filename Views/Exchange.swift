@@ -6,11 +6,6 @@ struct ExchangeView: View {
     @State private var amount : String = ""
     @State private var transactionType = "Buy"
     
-    @Binding var showMainView: Bool
-    @Binding var showExchangeView: Bool
-    @Binding var showOptionsView: Bool
-    @Binding var showChartView: Bool
-    
     @Binding var language: String
     
     @AppStorage("isDarkMode") private var isDarkMode = false
@@ -52,10 +47,7 @@ struct ExchangeView: View {
                 }
                 .frame(height: 40)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: { createToolbar(showMainView: $showMainView, showExchangeView: $showExchangeView, showOptionsView: $showOptionsView, showChartView: $showChartView,language: $language) })
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
-

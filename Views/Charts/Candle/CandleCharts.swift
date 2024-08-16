@@ -47,6 +47,7 @@ struct CandleChartsView: View {
                             }
                             .onTapGesture { self.selectedCandle = nil }
                         }
+                        .frame(maxHeight: UIScreen.main.bounds.height * 0.7)
                     }
                 }
             }
