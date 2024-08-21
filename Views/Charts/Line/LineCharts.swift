@@ -16,7 +16,6 @@ struct LineChartsView: View {
     
     var body: some View {
         VStack {
-            // Grupuj dane według waluty
             let groupedData = Dictionary(grouping: dataRows, by: { $0.currency })
             
             ScrollView {

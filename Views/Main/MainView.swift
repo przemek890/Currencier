@@ -15,15 +15,15 @@ struct MainView: View {
             Form {
                 Section(header:
                             HStack {
-                    Text(language == "en" ? "Currency pairs" : "Pary walutowe")
+                    Text(language == "en" ? "Currency pairs" : "Pary walutowe ")
                     Spacer()
-                    Text(language == "en" ? "Open" : "Otwarcie")
+                    Text(language == "en" ? "Open" : "Otw.")
                     Spacer()
-                    Text(language == "en" ? "High" : "Najwyższy" )
+                    Text(language == "en" ? "High" : "Najw." )
                     Spacer()
-                    Text(language == "en" ? "Low" : "Najniższy")
+                    Text(language == "en" ? "Low" : "Najn.")
                     Spacer()
-                    Text(language == "en" ? "Close" : "Zamknięcie")
+                    Text(language == "en" ? "Close" : "Zamk.")
                 }
                 ) {
                     CurrencyPairsView(language: $language, searchText: $searchText)

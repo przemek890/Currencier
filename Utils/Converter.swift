@@ -1,27 +1,41 @@
-struct CurrencyConverter {
-    let currencies = Global.currencies
-    let currencyPairs = Global.currencypairs
-    
-    var rates: [String: [String: Double]] = [:]
+import Foundation
+import SwiftUI
 
+class CurrencyConverter: ObservableObject {
+    @Published var currencies: [String] = Global.currencies
+    @Published var currencyPairs: [String] = Global.currencypairs
+    @Published var rates: [String: [String: Double]] = [:]
+    
     init() {
-        let dataRows = loadCSVData(currencies: currencyPairs)
-        
-        for currencyPair in currencyPairs {
-            // Filtrujemy rekordy, które mają prawidłową datę i zawierają daną parę walutową
-            let filteredDataRows = dataRows.filter { $0.date != "Data" && $0.currency.lowercased().contains(currencyPair.lowercased()) }
+        loadData()
+    }
+    
+    func loadData() {
+        DispatchQueue.global(qos: .background).async {
+            let dataRows = loadCSVData(currencies: self.currencyPairs)
             
-            // Bierzemy rekord z najnowszą datą
+            DispatchQueue.main.async {
+                self.processData(dataRows)
+            }
+        }
+    }
+    
+    private func processData(_ dataRows: [DataRow]) {
+        for currencyPair in currencyPairs {
+            let filteredDataRows = dataRows.filter {
+                $0.date != "Data" && $0.currency.lowercased().contains(currencyPair.lowercased())
+            }
+            
             if let dataRow = filteredDataRows.sorted(by: { $0.date > $1.date }).first {
                 let averageRate = (dataRow.open + dataRow.close) / 2
                 updateRates(for: currencyPair, with: averageRate)
             }
         }
     }
-
-    mutating func updateRates(for currencyPair: String, with rate: Double) {
-        let fromCurrency = String(currencyPair.suffix(3))
-        let toCurrency = String(currencyPair.prefix(3))
+    
+    private func updateRates(for currencyPair: String, with rate: Double) {
+        let fromCurrency = String(currencyPair.suffix(3)).lowercased()
+        let toCurrency = String(currencyPair.prefix(3)).lowercased()
         
         if rates[fromCurrency] == nil {
             rates[fromCurrency] = [toCurrency: rate]
@@ -29,19 +43,20 @@ struct CurrencyConverter {
             rates[fromCurrency]?[toCurrency] = rate
         }
     }
-
+    
     func convert(amount: Double, from: Int, to: Int) -> String {
-        let fromCurrency = currencies[from]
-        let toCurrency = currencies[to]
+        let fromCurrency = currencies[from].lowercased()
+        let toCurrency = currencies[to].lowercased()
         
-        if (amount < 0) {return "0.00";}
+        if amount < 0 { return "0.00" }
+        if fromCurrency == toCurrency { return String(format: "%.2f", amount) }
         
-        if fromCurrency.lowercased() == toCurrency.lowercased() {
-            return String(format: "%.2f", amount)
+        guard let conversionRate = rates[fromCurrency]?[toCurrency] else {
+            return "Conversion rate not available"
         }
         
-        let conversion = amount * (rates[fromCurrency.lowercased()]?[toCurrency.lowercased()] ?? 0.0)
-        
+        let conversion = amount * conversionRate
         return String(format: "%.2f", conversion)
     }
+    
 }

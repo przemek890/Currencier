@@ -60,56 +60,6 @@ struct OptionsView: View {
                         }
                     }
                 }
-                Section(header: Text(language == "en" ? "Powered by: " : "Zasilane przez: ")) {
-                        HStack{
-                            Image("apple")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 75)
-                            Link("Apple", destination: URL(string: "https://www.apple.com/")!)
-                        }
-                        HStack{
-                            Image("swift")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 70)
-                            Link("Swift", destination: URL(string: "https://developer.apple.com/swift/")!)
-                        }
-                        HStack {
-                            Image("swiftui")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 70)
-                            Link("SwiftUI", destination: URL(string: "https://developer.apple.com/xcode/swiftui/")!)
-                        }
-                        HStack {
-                            Image("swiftuicharts")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 70)
-                            Link("SwiftUICharts", destination: URL(string: "https://github.com/willdale/SwiftUICharts")!)
-                        }
-                        HStack {
-                            Image("alamofire")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 22)
-                            Link("Alamofire", destination: URL(string: "https://github.com/Alamofire")!)
-                        }
-                        HStack {
-                            Image("xcode")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Spacer().frame(width: 70)
-                            Link("Xcode", destination: URL(string: "https://developer.apple.com/xcode/")!)
-                        }
-                    }
             }
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)

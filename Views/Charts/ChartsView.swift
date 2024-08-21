@@ -1,58 +1,75 @@
 import SwiftUI
-import SwiftUICharts
-//----------------------------------------------------
 
-struct ChartView: View {
+struct ExchangeView: View {
+    @State private var itemSelected1 = 1
+    @State private var itemSelected2 = 0
+    @State private var amount: String = ""
+    @State private var transactionType = "Buy"
+    @State private var conversionResult: String = "0.00"
+    
     @Binding var language: String
     
-    @State private var searchText = ""
-    @State private var showLineChart = true
-    @State private var selectedRange = 30
-    @State private var selectedCandle: Int?
-    
     @AppStorage("isDarkMode") private var isDarkMode = false
-    @Environment(\.verticalSizeClass) var verticalSizeClass
     
-    
-    let dataRows: [DataRow]
-    
-    init(language:Binding<String>) {
-        self._language = language
-        
-        self.dataRows = loadCSVData(currencies: Global.currencypairs)
-    }
+    private let converter = CurrencyConverter()
     
     var body: some View {
         NavigationView {
             VStack {
-                if verticalSizeClass == .regular {
-                    SearchBar(text: $searchText,language: $language)
-                    Picker(language == "en" ? "Chart" : "Wykres", selection: $showLineChart) {
-                        Text(language == "en" ? "Line" : "Liniowy").tag(true)
-                        Text(language == "en" ? "Candle" : "Świecowy").tag(false)
+                Form {
+                    Section(header: Text(language == "en" ? "Convert a currency" : "Przelicz walutę")) {
+                        Picker(selection: $itemSelected1, label: Text(language == "en" ? "Base" : "Bazowa")) {
+                            ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
+                                Text(currency).tag(index)
+                            }
+                        }
+                        
+                        Picker(selection: $itemSelected2, label: Text(language == "en" ? "Quoted" : "Kwotowana")) {
+                            ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
+                                Text(currency).tag(index)
+                            }
+                        }
                     }
-                    .frame(height: 15)
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
-                    Picker(language == "en" ? "Range" : "Zakres", selection: $selectedRange) {
-                        Text(language == "en" ? "Week" : "Tydzień").tag(8)
-                        Text(language == "en" ? "Month" : "Miesiąc").tag(31)
-                        Text(language == "en" ? "Year" : "Rok").tag(366)
+                    
+                    Section(header: Text(language == "en" ? "Amount" : "Ilość")) {
+                        TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość", text: $amount)
+                            .onChange(of: amount) {
+                                if amount.contains(",") {
+                                    amount = amount.replacingOccurrences(of: ",", with: ".")
+                                }
+                                convertCurrency()
+                            }
+                            .keyboardType(.decimalPad)
                     }
-                    .frame(height: 15)
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
-                }
-                if showLineChart {
-                    LineChartsView(searchText: $searchText,language: $language, dataRows: filterDataRows(dataRows, range: selectedRange))
-                } else {
-                    CandleChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange), selectedCandle: $selectedCandle)
+                    
+                    Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
+                        Text("\(conversionResult) \(converter.currencies[itemSelected2])")
+                    }
                 }
             }
-            .onChange(of: selectedRange) { _ , _ in
-                self.selectedCandle = nil
+            .onTapGesture {
+                hideKeyboard()
             }
-            .preferredColorScheme(isDarkMode ? .dark : .light)
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+    }
+    
+    private func convertCurrency() {
+        guard let amountValue = Double(amount) else {
+            conversionResult = "0.00"
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = converter.convert(amount: amountValue, from: itemSelected2, to: itemSelected1)
+            
+            DispatchQueue.main.async {
+                conversionResult = result
+            }
+        }
+    }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

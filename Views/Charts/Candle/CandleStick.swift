@@ -24,20 +24,18 @@ struct CandleStick: View {
         let g_high_g_low = (maxHighValue - minLowValue) / 2
         let off = CGFloat((high_low - g_high_g_low) / scale + (maxHighValue - high) / scale)
         VStack {
-            // Górna cień świecy
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((high - max(open, close)) / scale))
                 .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
                 .offset(y: 8)
 
-            // Ciało świecy
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 10, height: max(CGFloat(abs(open - close)), scale) / scale)
                 .border(isWhiteBlack && close > open ? Color.black : Color.clear, width: 1)
 
-            // Dolna cień świecy
+
             Rectangle()
                 .fill(isWhiteBlack ? (close > open ? Color.white : Color.black) : (close > open ? Color.green : Color.red))
                 .frame(width: 1, height: CGFloat((min(open, close) - low) / scale))

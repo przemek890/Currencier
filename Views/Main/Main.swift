@@ -47,8 +47,3 @@ struct ContentView: View {
     }
 }
 
-//#Preview { // Turn on IOS view
-//    ContentView()
-//}
-
-
