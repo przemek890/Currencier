@@ -5,9 +5,9 @@ struct MainView: View {
 
     var body: some View {
         VStack {
-            Spacer() // Dodaj odstęp na górze
+            Spacer()
             Text(language == "en" ? "CURRENCIER" : "WALUTOR")
-                .font(.largeTitle) // Zwiększ rozmiar czcionki
+                .font(.largeTitle)
                 .padding()
                 .bold()
                 .opacity(0.5)

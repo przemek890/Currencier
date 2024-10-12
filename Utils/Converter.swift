@@ -11,13 +11,8 @@ class CurrencyConverter: ObservableObject {
     }
     
     func loadData() {
-        DispatchQueue.global(qos: .background).async {
-            let dataRows = loadCSVData(currencies: self.currencyPairs)
-            
-            DispatchQueue.main.async {
-                self.processData(dataRows)
-            }
-        }
+        let dataRows = loadCSVData(currencies: self.currencyPairs)
+        processData(dataRows)
     }
     
     private func processData(_ dataRows: [DataRow]) {
@@ -51,12 +46,11 @@ class CurrencyConverter: ObservableObject {
         if amount < 0 { return "0.00" }
         if fromCurrency == toCurrency { return String(format: "%.2f", amount) }
         
-        guard let conversionRate = rates[fromCurrency]?[toCurrency] else {
+        guard let conversionRate = rates[toCurrency]?[fromCurrency] else {
             return "Conversion rate not available"
         }
         
         let conversion = amount * conversionRate
         return String(format: "%.2f", conversion)
     }
-    
 }

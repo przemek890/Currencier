@@ -61,7 +61,7 @@ struct ChartView: View {
                     CandleChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange), selectedCandle: $selectedCandle)
                 }
             }
-            .onChange(of: selectedRange) { _ in
+            .onChange(of: selectedRange) {
                 self.selectedCandle = nil
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)

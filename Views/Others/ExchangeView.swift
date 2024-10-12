@@ -6,18 +6,18 @@ struct ExchangeView: View {
     @State private var amount: String = ""
     @State private var transactionType = "Buy"
     @State private var conversionResult: String = "0.00"
+    @FocusState private var isEditing: Bool
     
     @Binding var language: String
-    
     @AppStorage("isDarkMode") private var isDarkMode = false
     
-    private let converter = CurrencyConverter()
+    @ObservedObject private var converter = CurrencyConverter()
     
     var body: some View {
-        NavigationView {
-            VStack {
+            NavigationView {
                 Form {
                     Section(header: Text(language == "en" ? "Convert a currency" : "Przelicz walutę")) {
+                        
                         Picker(selection: $itemSelected1, label: Text(language == "en" ? "Base" : "Bazowa")) {
                             ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
                                 Text(currency).tag(index)
@@ -30,46 +30,26 @@ struct ExchangeView: View {
                             }
                         }
                     }
+                    .frame(height: 40)
                     
                     Section(header: Text(language == "en" ? "Amount" : "Ilość")) {
-                        TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość", text: $amount)
+                        TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość" ,text: $amount)
                             .onChange(of: amount) {
                                 if amount.contains(",") {
                                     amount = amount.replacingOccurrences(of: ",", with: ".")
                                 }
-                                convertCurrency()
                             }
-                            .keyboardType(.decimalPad)
                     }
+                    .frame(height: 40)
                     
+
                     Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
-                        Text("\(conversionResult) \(converter.currencies[itemSelected2])")
+                        Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected2])")
                     }
+                    .frame(height: 40)
                 }
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .onTapGesture {
-                hideKeyboard()
-            }
+            .preferredColorScheme(isDarkMode ? .dark : .light)
         }
-        .preferredColorScheme(isDarkMode ? .dark : .light)
-    }
-    
-    private func convertCurrency() {
-        guard let amountValue = Double(amount) else {
-            conversionResult = "0.00"
-            return
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let result = converter.convert(amount: amountValue, from: itemSelected2, to: itemSelected1)
-            
-            DispatchQueue.main.async {
-                conversionResult = result
-            }
-        }
-    }
-    
-    private func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
 }
