@@ -1,32 +1,32 @@
 import SwiftUI
 struct MainView: View {
     @Binding var searchText: String
-    @Binding var language: String
+    @ObservedObject var languageManager = LanguageManager.shared
 
     var body: some View {
         VStack {
             Spacer()
-            Text(language == "en" ? "CURRENCIER" : "WALUTOR")
+            Text(localizedText("CURRENCIER"))
                 .font(.largeTitle)
                 .padding()
                 .bold()
                 .opacity(0.5)
-            SearchBar(text: $searchText, language: $language)
+            SearchBar(text: $searchText)
             Form {
                 Section(header:
                             HStack {
-                    Text(language == "en" ? "Currency pairs" : "Pary walutowe ")
+                    Text(localizedText("Currency pairs"))
                     Spacer()
-                    Text(language == "en" ? "Open" : "Otw.")
+                    Text(localizedText("Open"))
                     Spacer()
-                    Text(language == "en" ? "High" : "Najw." )
+                    Text(localizedText("High"))
                     Spacer()
-                    Text(language == "en" ? "Low" : "Najn.")
+                    Text(localizedText("Low"))
                     Spacer()
-                    Text(language == "en" ? "Close" : "Zamk.")
+                    Text(localizedText("Close"))
                 }
                 ) {
-                    CurrencyPairsView(language: $language, searchText: $searchText)
+                    CurrencyPairsView(searchText: $searchText)
                 }
             }
         }

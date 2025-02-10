@@ -4,13 +4,12 @@ import SwiftUI
 struct CurrencyPairsView: View {
     
     @State private var selectedCurrencyPair: String? = nil
-    @Binding var language: String
     @Binding var searchText: String
+    @ObservedObject var languageManager = LanguageManager.shared
     
     
     let dataRows: [DataRow]
-    init(language: Binding<String>, searchText: Binding<String>) {
-        self._language = language
+    init(searchText: Binding<String>) {
         self._searchText = searchText
         self.dataRows = loadCSVData(currencies: Global.currencypairs)
     }
@@ -26,7 +25,7 @@ struct CurrencyPairsView: View {
                 let open = firstValidRow.open
                 let close = firstValidRow.close
                 if currencyPair.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
-                    CurrencyPairView(currency1: String(currencyPair.prefix(3)), currency2: String(currencyPair.suffix(3)), high: high, low: low, open: open, close: close, isSelected: selectedCurrencyPair == currencyPair,language: $language)
+                    CurrencyPairView(currency1: String(currencyPair.prefix(3)), currency2: String(currencyPair.suffix(3)), high: high, low: low, open: open, close: close, isSelected: selectedCurrencyPair == currencyPair)
                         .onTapGesture {
                             if selectedCurrencyPair == currencyPair {
                                 selectedCurrencyPair = nil

@@ -9,7 +9,8 @@ struct CurrencyPairView: View {
     var open: Double
     var close: Double
     var isSelected: Bool
-    @Binding var language: String
+    
+    @ObservedObject var languageManager = LanguageManager.shared
     
     var body: some View {
         HStack {
@@ -28,7 +29,7 @@ struct CurrencyPairView: View {
             Spacer()
             if isSelected {
                 let change = close - open
-                Text("\(language == "en" ? "Change from last day: " : "Zmiana ostatniego dnia: ")\(String(format: "%.2f", change * 100 / open))%")
+                Text("\(localizedText("Change from last day: "))\(String(format: "%.2f", change * 100 / open))%")
                     .font(.system(size: 12))
                     .foregroundColor(change > 0 ? .green : .red)
             } else {

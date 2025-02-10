@@ -2,8 +2,6 @@ import SwiftUI
 import SwiftUICharts
 
 struct ChartView: View {
-    @Binding var language: String
-    
     @State private var searchText = ""
     @State private var showLineChart = true
     @State private var selectedRange = 30
@@ -11,11 +9,11 @@ struct ChartView: View {
     
     @AppStorage("isDarkMode") private var isDarkMode = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    @ObservedObject var languageManager = LanguageManager.shared
     
     let dataRows: [DataRow]
     
-    init(language: Binding<String>) {
-        self._language = language
+    init() {
         self.dataRows = loadCSVData(currencies: Global.currencypairs)
     }
     
@@ -24,7 +22,7 @@ struct ChartView: View {
             VStack {
                 if verticalSizeClass == .regular {
                     HStack {
-                        SearchBar(text: $searchText, language: $language)
+                        SearchBar(text: $searchText)
                         
                         Menu {
                             VStack {
@@ -56,9 +54,9 @@ struct ChartView: View {
                 }
                 
                 if showLineChart {
-                    LineChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange))
+                    LineChartsView(searchText: $searchText, dataRows: filterDataRows(dataRows, range: selectedRange))
                 } else {
-                    CandleChartsView(searchText: $searchText, language: $language, dataRows: filterDataRows(dataRows, range: selectedRange), selectedCandle: $selectedCandle)
+                    CandleChartsView(searchText: $searchText, dataRows: filterDataRows(dataRows, range: selectedRange), selectedCandle: $selectedCandle)
                 }
             }
             .onChange(of: selectedRange) {
@@ -69,31 +67,31 @@ struct ChartView: View {
     }
     
     private var chartTypeLabel: String {
-        language == "en" ? "Chart Type" : "Rodzaj Wykresu"
+        localizedText("Chart Type")
     }
     
     private var lineChartLabel: String {
-        language == "en" ? "Line" : "Liniowy"
+        localizedText("Line")
     }
     
     private var candleChartLabel: String {
-        language == "en" ? "Candle" : "Świecowy"
+        localizedText("Candle")
     }
     
     private var rangeLabel: String {
-        language == "en" ? "Range" : "Zakres"
+        localizedText("Range")
     }
     
     private var weekLabel: String {
-        language == "en" ? "Week" : "Tydzień"
+        localizedText("Week")
     }
     
     private var monthLabel: String {
-        language == "en" ? "Month" : "Miesiąc"
+        localizedText("Month")
     }
     
     private var yearLabel: String {
-        language == "en" ? "Year" : "Rok"
+        localizedText("Year")
     }
 }
 

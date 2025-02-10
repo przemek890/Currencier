@@ -6,25 +6,24 @@ struct ExchangeView: View {
     @State private var amount: String = ""
     @State private var transactionType = "Buy"
     @State private var conversionResult: String = "0.00"
-    @FocusState private var isEditing: Bool
     
-    @Binding var language: String
     @AppStorage("isDarkMode") private var isDarkMode = false
     
     @ObservedObject private var converter = CurrencyConverter()
+    @ObservedObject var languageManager = LanguageManager.shared
     
     var body: some View {
             NavigationView {
                 Form {
-                    Section(header: Text(language == "en" ? "Convert a currency" : "Przelicz walutę")) {
+                    Section(header: Text(localizedText("Convert a currency"))) {
                         
-                        Picker(selection: $itemSelected1, label: Text(language == "en" ? "Base" : "Bazowa")) {
+                        Picker(selection: $itemSelected1, label: Text(localizedText("Base"))) {
                             ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
                                 Text(currency).tag(index)
                             }
                         }
                         
-                        Picker(selection: $itemSelected2, label: Text(language == "en" ? "Quoted" : "Kwotowana")) {
+                        Picker(selection: $itemSelected2, label: Text(localizedText("Quoted"))) {
                             ForEach(Array(converter.currencies.enumerated()), id: \.offset) { index, currency in
                                 Text(currency).tag(index)
                             }
@@ -32,8 +31,8 @@ struct ExchangeView: View {
                     }
                     .frame(height: 40)
                     
-                    Section(header: Text(language == "en" ? "Amount" : "Ilość")) {
-                        TextField(language == "en" ? "Enter an amount" : "Wprowadź ilość" ,text: $amount)
+                    Section(header: Text(localizedText("Amount"))) {
+                        TextField(localizedText("Enter an amount") ,text: $amount)
                             .onChange(of: amount) {
                                 if amount.contains(",") {
                                     amount = amount.replacingOccurrences(of: ",", with: ".")
@@ -43,7 +42,7 @@ struct ExchangeView: View {
                     .frame(height: 40)
                     
 
-                    Section(header: Text(language == "en" ? "Conversion" : "Konwersja")) {
+                    Section(header: Text(localizedText("Conversion"))) {
                         Text("\(converter.convert(amount: Double(amount) ?? 0.0, from: itemSelected1, to: itemSelected2)) \(converter.currencies[itemSelected2])")
                     }
                     .frame(height: 40)

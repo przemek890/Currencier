@@ -3,11 +3,11 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var text: String
-    @Binding var language: String
+    @ObservedObject var languageManager = LanguageManager.shared
 
     var body: some View {
         HStack {
-            TextField(language == "en" ? "Search..." : "Wyszukaj...", text: $text)
+            TextField(localizedText("Search..."), text: $text)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))

@@ -4,13 +4,11 @@ import SwiftUICharts
 
 struct LineChartsView: View {
     @Binding var searchText: String
-    @Binding var language: String
     
     let dataRows: [DataRow]
     
-    init(searchText: Binding<String>, language: Binding<String>, dataRows: [DataRow]) {
+    init(searchText: Binding<String>, dataRows: [DataRow]) {
         self._searchText = searchText
-        self._language = language
         self.dataRows = dataRows
     }
     

@@ -2,30 +2,30 @@ import SwiftUI
 //----------------------------------------------------
 
 func createToolbar(showMainView: Binding<Bool>, showExchangeView: Binding<Bool>,
-                   showOptionsView: Binding<Bool>, showChartView: Binding<Bool>,language: Binding<String>) -> some ToolbarContent {
+                   showOptionsView: Binding<Bool>, showChartView: Binding<Bool>) -> some ToolbarContent {
     ToolbarItem(placement: .navigationBarLeading) {
         Menu {
-            Button(language.wrappedValue == "en" ? "Main" : "Menu główne" , action: {
+            Button(localizedText("Main"), action: {
                 showExchangeView.wrappedValue = false
                 showOptionsView.wrappedValue = false
                 showChartView.wrappedValue = false
                 showMainView.wrappedValue = true
             })
-            Button(language.wrappedValue == "en" ? "Exchange" : "Wymiana", action: {
+            Button(localizedText("Exchange"), action: {
                 showMainView.wrappedValue = false
                 showOptionsView.wrappedValue = false
                 showChartView.wrappedValue = false
                 showExchangeView.wrappedValue = true
 
             })
-            Button(language.wrappedValue == "en" ? "Charts" : "Wykresy" , action: {
+            Button(localizedText("Charts"), action: {
                 showMainView.wrappedValue = false
                 showOptionsView.wrappedValue = false
                 showExchangeView.wrappedValue = false
                 showChartView.wrappedValue = true
  
             })
-            Button(language.wrappedValue == "en" ? "Options" : "Opcje", action: {
+            Button(localizedText("Options"), action: {
                 showMainView.wrappedValue = false
                 showChartView.wrappedValue = false
                 showExchangeView.wrappedValue = false

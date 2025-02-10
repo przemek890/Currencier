@@ -3,7 +3,6 @@ import SwiftUI
 
 struct CandleChartsView: View {
     @Binding var searchText: String
-    @Binding var language: String
     let dataRows: [DataRow]
     @Binding var selectedCandle: Int?
     @State private var selectedCurrency: String?

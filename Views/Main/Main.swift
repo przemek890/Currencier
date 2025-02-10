@@ -5,41 +5,41 @@ struct ContentView: View {
     @StateObject private var dataLoader = DataLoader()
 
     @State private var selectedTab: Int = 0
-    @State private var language: String = "en"
     @State private var searchText: String = ""
     
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
+    @ObservedObject var languageManager = LanguageManager.shared
 
     var body: some View {
         if dataLoader.isDataLoaded {
             TabView(selection: $selectedTab) {
-                MainView(searchText: $searchText, language: $language)
+                MainView(searchText: $searchText)
                     .tabItem {
-                        Label(language == "en" ? "Main" : "Menu główne", systemImage: "house")
+                        Label(localizedText("Main"), systemImage: "house")
                     }
                     .tag(0)
                 
-                ExchangeView(language: $language)
+                ExchangeView()
                     .tabItem {
-                        Label(language == "en" ? "Exchange" : "Wymiana", systemImage: "arrow.left.arrow.right")
+                        Label(localizedText("Exchange"), systemImage: "arrow.left.arrow.right")
                     }
                     .tag(1)
                 
-                ChartView(language: $language)
+                ChartView()
                     .tabItem {
-                        Label(language == "en" ? "Charts" : "Wykresy", systemImage: "chart.bar")
+                        Label(localizedText("Charts"), systemImage: "chart.bar")
                     }
                     .tag(2)
                 
-                OptionsView(language: $language)
+                OptionsView()
                     .tabItem {
-                        Label(language == "en" ? "Options" : "Opcje", systemImage: "gear")
+                        Label(localizedText("Options"), systemImage: "gear")
                     }
                     .tag(3)
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
         } else {
-            Text(language == "en" ? "Loading..." : "Ładowanie")
+            Text(localizedText("Loading..."))
                 .onAppear {
                     dataLoader.loadData()
                 }

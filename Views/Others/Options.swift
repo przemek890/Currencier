@@ -3,14 +3,14 @@ import SwiftUI
 
 struct OptionsView: View {
     
-    @Binding var language: String
     @AppStorage("isDarkMode") private var isDarkMode = false
     @AppStorage("isWhiteBlack") private var isWhiteBlack = false
+    @ObservedObject var languageManager = LanguageManager.shared
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text(language == "en" ? "Theme" : "Motyw")) {
+                Section(header: Text(localizedText("Theme"))) {
                     VStack(alignment: .leading) {
                         HStack {
                             Image("lighting")
@@ -19,7 +19,7 @@ struct OptionsView: View {
                                 .frame(height: 20)
                             Spacer().frame(width: 20)
                             Toggle(isOn: $isDarkMode) {
-                                Text(isDarkMode ? (language == "en" ? "Dark mode" : "Tryb ciemny") : (language == "en" ? "Light mode" : "Tryb jasny"))
+                                Text(isDarkMode ? (localizedText("Dark mode")) : (localizedText("Light mode")))
                             }
                         }
                         HStack {
@@ -29,26 +29,26 @@ struct OptionsView: View {
                                 .frame(height: 35)
                             Spacer().frame(width: 17)
                             Toggle(isOn: $isWhiteBlack) {
-                                Text(isWhiteBlack ? (language == "en" ? "White-black mode" : "Tryb biało-czarny") : (language == "en" ? "Green-red mode" : "Tryb zielono-czerwony"))
+                                Text(isWhiteBlack ? (localizedText("White-black mode")) : (localizedText("Green-red mode")))
                             }
                         }
                     }
                 }
-                Section(header: Text(language == "en" ? "Language" : "Język")) {
+                Section(header: Text(localizedText("Language"))) {
                     Button(action: {
-                        self.language = self.language == "en" ? "pl" : "en"
+                        LanguageManager.shared.language = LanguageManager.shared.language == "en" ? "pl" : "en"
                     }) {
                         HStack {
-                            Image(self.language == "en" ? "usd" : "pln")
+                            Image(LanguageManager.shared.language == "en" ? "usd" : "pln")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 20)
                             Spacer().frame(width: 20)
-                            Text(self.language == "en" ? "English" : "Polski")
+                            Text(localizedText("English"))
                         }
                     }
                 }
-                Section(header: Text(language == "en" ? "Author" : "Autor")) {
+                Section(header: Text(localizedText("Author"))) {
                     VStack {
                         HStack{
                             Image("github")

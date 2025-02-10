@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,13 +15,13 @@
 		340437752B44691800AC22E5 /* CurrencierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340437702B44691800AC22E5 /* CurrencierApp.swift */; };
 		340437762B44691800AC22E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 340437712B44691800AC22E5 /* Assets.xcassets */; };
 		340437772B44691800AC22E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 340437732B44691800AC22E5 /* Preview Assets.xcassets */; };
-		34056C1A2B446B4600444C2E /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C172B446B4600444C2E /* Toolbar.swift */; };
 		34056C1B2B446B4600444C2E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C182B446B4600444C2E /* SearchBar.swift */; };
 		34056C1C2B446B4600444C2E /* ScaleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C192B446B4600444C2E /* ScaleBar.swift */; };
 		34056C3D2B446F4500444C2E /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C3C2B446F4500444C2E /* CurrencyPair.swift */; };
 		34056C3F2B446F6800444C2E /* CurrencyPairs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C3E2B446F6800444C2E /* CurrencyPairs.swift */; };
 		34056C412B446F9300444C2E /* Dataloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C402B446F9300444C2E /* Dataloader.swift */; };
 		34056C452B44729A00444C2E /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34056C442B44729A00444C2E /* Converter.swift */; };
+		340F3B132D5A61D00055767B /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340F3B122D5A61CA0055767B /* Language.swift */; };
 		344C98A32B35B63A003A10B7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A22B35B63A003A10B7 /* Alamofire */; };
 		344C98A62B35C032003A10B7 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 344C98A52B35C032003A10B7 /* SwiftCSV */; };
 		3454451E2B33B1FF0004290E /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454451D2B33B1FF0004290E /* ChartView.swift */; };
@@ -46,13 +46,13 @@
 		340437702B44691800AC22E5 /* CurrencierApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencierApp.swift; sourceTree = "<group>"; };
 		340437712B44691800AC22E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		340437732B44691800AC22E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		34056C172B446B4600444C2E /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		34056C182B446B4600444C2E /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		34056C192B446B4600444C2E /* ScaleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleBar.swift; sourceTree = "<group>"; };
 		34056C3C2B446F4500444C2E /* CurrencyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPair.swift; sourceTree = "<group>"; };
 		34056C3E2B446F6800444C2E /* CurrencyPairs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairs.swift; sourceTree = "<group>"; };
 		34056C402B446F9300444C2E /* Dataloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataloader.swift; sourceTree = "<group>"; };
 		34056C442B44729A00444C2E /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		340F3B122D5A61CA0055767B /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		345445182B33B1FF0004290E /* Currencier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currencier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454451D2B33B1FF0004290E /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		3462DB8C2B445B5500BD9DA1 /* FilterDataRows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataRows.swift; sourceTree = "<group>"; };
@@ -65,6 +65,10 @@
 		34CA45292B58835D009274F6 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Format.swift; path = Views/Charts/Line/Format.swift; sourceTree = SOURCE_ROOT; };
 		34EC5C1C2B4443D700F64E16 /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		340F3B0B2D5A5B340055767B /* Dictionaries */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Dictionaries; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		345445152B33B1FF0004290E /* Frameworks */ = {
@@ -130,7 +134,6 @@
 		34056C162B446B4600444C2E /* ViewExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				34056C172B446B4600444C2E /* Toolbar.swift */,
 				34056C182B446B4600444C2E /* SearchBar.swift */,
 				34056C192B446B4600444C2E /* ScaleBar.swift */,
 			);
@@ -165,6 +168,7 @@
 				3454452D2B33C1BD0004290E /* Data */,
 				3454452A2B33B8DB0004290E /* Views */,
 				345445192B33B1FF0004290E /* Products */,
+				340F3B0B2D5A5B340055767B /* Dictionaries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,6 +215,7 @@
 		34A2AE322B4474A8002DCAE5 /* GlobalData */ = {
 			isa = PBXGroup;
 			children = (
+				340F3B122D5A61CA0055767B /* Language.swift */,
 				34A2AE352B447512002DCAE5 /* Symbols.swift */,
 			);
 			path = GlobalData;
@@ -230,6 +235,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				340F3B0B2D5A5B340055767B /* Dictionaries */,
 			);
 			name = Currencier;
 			packageProductDependencies = (
@@ -314,7 +322,7 @@
 				34056C3F2B446F6800444C2E /* CurrencyPairs.swift in Sources */,
 				346BC55E2B34ED4200DC902C /* Options.swift in Sources */,
 				3404376B2B44680100AC22E5 /* CandleCharts.swift in Sources */,
-				34056C1A2B446B4600444C2E /* Toolbar.swift in Sources */,
+				340F3B132D5A61D00055767B /* Language.swift in Sources */,
 				34BE2A562C6FAEDE00F7F317 /* MainView.swift in Sources */,
 				34EC5C1D2B4443D700F64E16 /* LoadData.swift in Sources */,
 				34056C3D2B446F4500444C2E /* CurrencyPair.swift in Sources */,
