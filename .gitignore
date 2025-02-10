@@ -1,0 +1,41 @@
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Thumbnails
+._*
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Build directories
+/build/
+/dist/
+/out/
+target/
+
+# Dependencies
+/node_modules/
+/vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+*.class
+*.swp
+*.swo
+.cache/

@@ -7,7 +7,7 @@
 - The ability to check real currency exchange rates retrieved through an API once a day and cached in the phone's memory - source: https://stooq.com/
 
 <div align="center">
-    <img  src="Visualization/currencies_1.png" width="200"/> <img src="Visualization/currencies_2.png" width="200"/>
+    <img  src="Doc/currencies_1.png" width="200"/> <img src="Doc/currencies_2.png" width="200"/>
 </div>
 
 ___
@@ -15,14 +15,14 @@ ___
 - Candlestick charts with the ability to check opening, closing, and the highest and lowest prices for a specific currency on a given day, presented in two color schemes:
 
 <div align="center">
-    <img  src="Visualization/candle_1.png" width="500"/>
+    <img  src="Doc/candle_1.png" width="500"/>
 </div>
 <div align="center" style="font-weight: bold">GREEN-RED</div>
 
 <br/>
 
 <div align="center">
-    <img  src="Visualization/candle_2.png" width="500"/>
+    <img  src="Doc/candle_2.png" width="500"/>
 </div>
 <div align="center" style="font-weight: bold ">BLACK-WHITE</div>
 
@@ -31,11 +31,11 @@ ___
 - Line charts were created using SwiftUICharts:
 
 <div align="center">
-    <img  src="Visualization/line_1.png" width="500"/>
+    <img  src="Doc/line_1.png" width="500"/>
 </div>
 <br/>
 <div align="center">
-    <img  src="Visualization/line_2.png" width="500""/>
+    <img  src="Doc/line_2.png" width="500""/>
 </div>
 
 ___
@@ -46,7 +46,7 @@ ___
 - Author information and source pages
 
 <div align="center">
-    <img  src="Visualization/converter.png" width="200"/> <img src="Visualization/author.png" width="200"/>
+    <img  src="Doc/converter.png" width="200"/> <img src="Doc/author.png" width="200"/>
 </div>
 
 ___
